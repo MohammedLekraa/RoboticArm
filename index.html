@@ -1,218 +1,192 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sensorized Glove Controlled Robotic Arm // Technical Documentation</title>
-  
-  <link rel="stylesheet" href="styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TFG - Control Teleoperado de Brazo Antropomórfico</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-
-  <!-- TOP NAVBAR -->
-  <header class="top-nav">
-    <div class="nav-left">
-      <a href="https://tu-usuario.github.io/" class="back-link">← RETURN TO PORTFOLIO</a>
-      <span class="nav-divider">/</span>
-      <span class="doc-brand">PROJECT_01 // DOCUMENTATION</span>
-    </div>
-    <div class="nav-right">
-      <span class="status-badge">REV 2.0</span>
-      <span class="status-badge status-active">OPERATIONAL</span>
-    </div>
-  </header>
-
-  <div class="layout-wrapper">
-
-    <!-- LEFT SIDEBAR: NAVIGATION -->
-    <aside class="sidebar-left">
-      <div class="sidebar-group">
-        <span class="sidebar-title">SYSTEM OVERVIEW</span>
-        <ul>
-          <li><a href="#intro" class="active">Introduction & Specs</a></li>
-          <li><a href="#architecture">System Architecture</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-group">
-        <span class="sidebar-title">HARDWARE & ELECTRONICS</span>
-        <ul>
-          <li><a href="#power">Power & Decoupling</a></li>
-          <li><a href="#schematics">Schematics & Signals</a></li>
-          <li><a href="#bom">Bill of Materials (BOM)</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-group">
-        <span class="sidebar-title">FIRMWARE & CONTROL</span>
-        <ul>
-          <li><a href="#kinematics">Kinematics & IMU Filter</a></li>
-          <li><a href="#esp-now">ESP-NOW Protocol</a></li>
-          <li><a href="#source-code">Source Code Snippets</a></li>
-        </ul>
-      </div>
-    </aside>
-
-    <!-- MAIN CONTENT COLUMN -->
-    <main class="main-content">
-
-      <!-- HEADER -->
-      <section id="intro" class="doc-header">
-        <div class="version-tag">HARDWARE_VER: v1.0</div>
-        <h1 class="page-title">Sensorized Glove Controlled Robotic Arm</h1>
-        <p class="page-description">
-          Comprehensive documentation for the design, firmware architecture, and hardware implementation of a low-latency anthropomorphic teleoperation system.
-        </p>
-
-        <!-- ESTIMATED TIME / METRICS CARD -->
-        <div class="info-card">
-          <div class="info-item">
-            <span class="info-label">LATENCY</span>
-            <span class="info-val">&lt; 15 ms</span>
-          </div>
-          <div class="info-item">
-            <span class="info-label">RF PROTOCOL</span>
-            <span class="info-val">ESP-NOW (2.4GHz)</span>
-          </div>
-          <div class="info-item">
-            <span class="info-label">MCU</span>
-            <span class="info-val">Dual ESP32-WROOM</span>
-          </div>
+    <!-- Encabezado Principal -->
+    <header class="navbar">
+        <div class="logo-area">
+            <i class="fa-solid fa-robot logo-icon"></i>
+            <div>
+                <h1>Control de Brazo Antropomórfico</h1>
+                <p>TFG Enginyeria Biomèdica | Universitat Rovira i Virgili</p>
+            </div>
         </div>
-      </section>
-
-      <!-- MAIN MEDIA -->
-      <div class="media-frame">
-        <img src="Brazo3.jpg" alt="Robotic Arm Setup">
-      </div>
-      <span class="media-caption">Fig 1. Complete physical assembly featuring the sensorized transmitter glove and 6-DOF robotic arm.</span>
-
-      <!-- SECTION 1 -->
-      <section id="architecture" class="doc-block">
-        <h2>01. System Architecture & Data Flow</h2>
-        <p>
-          The system captures spatial orientation and finger kinematics via non-invasive sensory glove hardware. High-rate analog voltages and I2C orientation vectors are converted into structured telemetry packets and transmitted over a connectionless, low-overhead wireless protocol.
-        </p>
-
-        <div class="arch-container">
-          <div class="arch-card">
-            <span class="step-badge">01 SENSING</span>
-            <h4>Transmitter Glove</h4>
-            <p>5x Flex Sensors (12-bit ADC) + MPU6050 IMU</p>
-          </div>
-          <div class="arch-arrow">→</div>
-          <div class="arch-card">
-            <span class="step-badge">02 PROCESSING</span>
-            <h4>ESP-NOW Core</h4>
-            <p>Complementary Filtering & 100Hz Packet Delivery</p>
-          </div>
-          <div class="arch-arrow">→</div>
-          <div class="arch-card">
-            <span class="step-badge">03 ACTUATION</span>
-            <h4>Robotic Arm</h4>
-            <p>PCA9685 PWM Controller & 6x Servomotors</p>
-          </div>
+        <div class="status-badge" id="btStatus">
+            <span class="dot pulse"></span>
+            <span id="btText">Bluetooth SPP: Conectado (10 Hz)</span>
         </div>
-      </section>
+    </header>
 
-      <!-- SECTION 2 -->
-      <section id="power" class="doc-block">
-        <h2>02. Electrical Engineering & Power Management</h2>
-        <p>
-          Actuator high-current demand required dedicated power rail separation to prevent voltage sag induced microcontroller brownout resets.
-        </p>
-        <ul class="tech-list">
-          <li><strong>Power Rail Isolation:</strong> Independent 5V/6A DC-DC Buck converter for servomotors and regulated 3.3V LDO for MCU/Sensors.</li>
-          <li><strong>Signal Filtering:</strong> RC low-pass passive filtering ($f_c \approx 50\text{Hz}$) on raw flex sensor analog outputs to attenuate high-frequency noise.</li>
-          <li><strong>Decoupling Matrix:</strong> Bulk electrolytic capacitors ($1000\mu\text{F}$) on high-current bus paired with ceramic capacitors ($0.1\mu\text{F}$) near IC power pins.</li>
-        </ul>
-      </section>
+    <!-- Contenedor Dashboard Principal (Grid 2 Columnas) -->
+    <main class="dashboard-grid">
+        
+        <!-- COLUMNA IZQUIERDA: MONITOREO EN TIEMPO REAL -->
+        <section class="card col-left">
+            <div class="card-header">
+                <h2><i class="fa-solid fa-gauge-high"></i> Telemetría en Tiempo Real</h2>
+                <span class="badge">Nodo Cliente → Servidor</span>
+            </div>
 
-      <!-- SECTION 3 -->
-      <section id="bom" class="doc-block">
-        <h2>03. Bill of Materials (BOM)</h2>
-        <div class="table-container">
-          <table class="tech-table">
-            <thead>
-              <tr>
-                <th>COMPONENT</th>
-                <th>QTY</th>
-                <th>INTERFACE</th>
-                <th>FUNCTION</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>ESP32-WROOM-32</td>
-                <td>2</td>
-                <td>SPI / I2C / ADC</td>
-                <td>Main Transceiver MCUs</td>
-              </tr>
-              <tr>
-                <td>MPU6050 IMU</td>
-                <td>1</td>
-                <td>I2C (0x68)</td>
-                <td>6-DOF Wrist Orientation</td>
-              </tr>
-              <tr>
-                <td>Flex Sensors</td>
-                <td>5</td>
-                <td>Analog Divider</td>
-                <td>Finger Flexion Capture</td>
-              </tr>
-              <tr>
-                <td>PCA9685 Driver</td>
-                <td>1</td>
-                <td>I2C (0x40)</td>
-                <td>16-Ch PWM Servo Control</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
+            <!-- Métricas Rápidas del Sistema -->
+            <div class="metrics-row">
+                <div class="metric-box">
+                    <span class="m-label">Frecuencia BT</span>
+                    <span class="m-value">10 Hz</span>
+                </div>
+                <div class="metric-box">
+                    <span class="m-label">Alimentación Servos</span>
+                    <span class="m-value">6.5 V / 1.6 A</span>
+                </div>
+                <div class="metric-box">
+                    <span class="m-label">MCU Guante</span>
+                    <span class="m-value">3.3 V (ESP32)</span>
+                </div>
+            </div>
 
-      <!-- SECTION 4 -->
-      <section id="source-code" class="doc-block">
-        <h2>04. Firmware Implementation</h2>
-        <div class="code-box">
-          <div class="code-header">
-            <span>telemetry_protocol.h</span>
-            <span>C++ / FreeRTOS</span>
-          </div>
-          <pre><code>typedef struct __attribute__((__packed__)) {
-    uint8_t flex_fingers[5]; // Mapped 0-180 positions
-    int16_t wrist_pitch;     // Scaled pitch angle
-    int16_t wrist_roll;      // Scaled roll angle
-    uint32_t timestamp;      // Packet sequence timestamp
-} TelemetryPacket;
+            <!-- Monitor de Sensores de Flexión (Dedos) -->
+            <div class="section-title">
+                <h3><i class="fa-solid fa-hand"></i> Flexión de Dedos (Divisor de Tensión 47kΩ)</h3>
+            </div>
+            <div class="fingers-container">
+                <!-- Pulgar -->
+                <div class="finger-card">
+                    <div class="f-info">
+                        <span>Pulgar (GPIO 39)</span>
+                        <span id="valFlex1" class="adc-val">2100 ADC | 0°</span>
+                    </div>
+                    <div class="progress-bar"><div class="fill" id="barFlex1" style="width: 0%"></div></div>
+                </div>
+                <!-- Índice -->
+                <div class="finger-card">
+                    <div class="f-info">
+                        <span>Índice (GPIO 36)</span>
+                        <span id="valFlex2" class="adc-val">2100 ADC | 0°</span>
+                    </div>
+                    <div class="progress-bar"><div class="fill" id="barFlex2" style="width: 0%"></div></div>
+                </div>
+                <!-- Corazón -->
+                <div class="finger-card">
+                    <div class="f-info">
+                        <span>Corazón (GPIO 34)</span>
+                        <span id="valFlex3" class="adc-val">2300 ADC | 0°</span>
+                    </div>
+                    <div class="progress-bar"><div class="fill" id="barFlex3" style="width: 0%"></div></div>
+                </div>
+                <!-- Anular -->
+                <div class="finger-card">
+                    <div class="f-info">
+                        <span>Anular (GPIO 35)</span>
+                        <span id="valFlex4" class="adc-val">2100 ADC | 0°</span>
+                    </div>
+                    <div class="progress-bar"><div class="fill" id="barFlex4" style="width: 0%"></div></div>
+                </div>
+                <!-- Meñique -->
+                <div class="finger-card">
+                    <div class="f-info">
+                        <span>Meñique (GPIO 33)</span>
+                        <span id="valFlex5" class="adc-val">2000 ADC | 0°</span>
+                    </div>
+                    <div class="progress-bar"><div class="fill" id="barFlex5" style="width: 0%"></div></div>
+                </div>
+            </div>
 
-TelemetryPacket txData;</code></pre>
-        </div>
-      </section>
+            <!-- Monitor de Rotación de Muñeca (IMU) -->
+            <div class="section-title margin-top">
+                <h3><i class="fa-solid fa-arrows-spin"></i> Rotación de Muñeca (IMU MPU6050)</h3>
+            </div>
+            <div class="wrist-container">
+                <div class="gauge-wrapper">
+                    <div class="gauge-body">
+                        <div class="gauge-fill" id="wristNeedle"></div>
+                        <div class="gauge-cover"><span id="wristAngle">0°</span></div>
+                    </div>
+                </div>
+                <div class="imu-details">
+                    <p><strong>Filtro:</strong> Complementario ($\alpha = 0.98$)</p>
+                    <p><strong>Corrección:</strong> Angle Unwrapping ($\pm 180^\circ$)</p>
+                    <p><strong>Escalado Servo:</strong> $\times 1.82$</p>
+                </div>
+            </div>
+
+            <!-- Consola de Monitor Serie / Depuración -->
+            <div class="terminal-box">
+                <div class="term-header">
+                    <span><i class="fa-solid fa-terminal"></i> Monitor Serie (Bluetooth SPP Trama)</span>
+                    <button id="btnSimulate" class="btn-small">Simular Trama</button>
+                </div>
+                <pre id="terminalLog" class="term-body">Esperando tramas de datos: &lt;flex1&gt; &lt;flex2&gt; &lt;flex3&gt; &lt;flex4&gt; &lt;flex5&gt; &lt;roll_servo&gt;...</pre>
+            </div>
+        </section>
+
+        <!-- COLUMNA DERECHA: DOCUMENTACIÓN TÉCNICA Y MAPEO DE PINES -->
+        <section class="card col-right">
+            <div class="card-header">
+                <h2><i class="fa-solid fa-microchip"></i> Arquitectura Electrónica & TFG</h2>
+                <span class="badge cyan">Wemos D1 R32</span>
+            </div>
+
+            <!-- Tabla Mapeo de Pines -->
+            <h3>Asignación de Pines (Nodos ESP32)</h3>
+            <div class="table-responsive">
+                <table class="tech-table">
+                    <thead>
+                        <tr>
+                            <th>Elemento</th>
+                            <th>Pin ESP32 (Cliente / Guante)</th>
+                            <th>Pin ESP32 (Servidor / Brazo)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Flex 1 (Pulgar)</td><td>GPIO 39 (ADC)</td><td>GPIO 14 (PWM Servo 1)</td></tr>
+                        <tr><td>Flex 2 (Índice)</td><td>GPIO 36 (ADC)</td><td>GPIO 27 (PWM Servo 2)</td></tr>
+                        <tr><td>Flex 3 (Corazón)</td><td>GPIO 34 (ADC)</td><td>GPIO 16 (PWM Servo 3)</td></tr>
+                        <tr><td>Flex 4 (Anular)</td><td>GPIO 35 (ADC)</td><td>GPIO 17 (PWM Servo 4)</td></tr>
+                        <tr><td>Flex 5 (Meñique)</td><td>GPIO 33 (ADC)</td><td>GPIO 25 (PWM Servo 5)</td></tr>
+                        <tr><td>IMU MPU6050</td><td>GPIO 21 (SDA) / 22 (SCL)</td><td>GPIO 26 (PWM Servo 6)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Caracterización de Sensores de Flexión -->
+            <h3 class="margin-top">Tabla de Caracterización (Calibración ADC)</h3>
+            <div class="table-responsive">
+                <table class="tech-table compact">
+                    <thead>
+                        <tr>
+                            <th>Dedo</th>
+                            <th>FlexMax (Extendido)</th>
+                            <th>FlexMin (Flexionado)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Pulgar</td><td>2100 ADC</td><td>1530 ADC</td></tr>
+                        <tr><td>Índice</td><td>2100 ADC</td><td>1530 ADC</td></tr>
+                        <tr><td>Corazón</td><td>2300 ADC</td><td>1700 ADC</td></tr>
+                        <tr><td>Anular</td><td>2100 ADC</td><td>1650 ADC</td></tr>
+                        <tr><td>Meñique</td><td>2000 ADC</td><td>1730 ADC</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Resumen Técnico del Proyecto -->
+            <div class="info-card margin-top">
+                <h4><i class="fa-solid fa-circle-info"></i> Aspectos Clave de Integración</h4>
+                <ul>
+                    <li><strong>Procesamiento IMU:</strong> Fusión de acelerómetro y giroscopio para eliminar la deriva, con técnica de *Unwrapping* para evitar giros bruscos al cruzar los $\pm180^{\circ}$.</li>
+                    <li><strong>Aislamiento de Alimentación:</strong> Separa la línea de 6.5V de los servomotores de la electrónica de control ESP32 para mitigar caídas de tensión y reinicios.</li>
+                    <li><strong>Mecanismos:</strong> Antebrazo del proyecto *InMoov* acoplado a la mano *BrainyHand* mediante pieza adaptadora impresa en 3D y articulaciones flexibles de TPU.</li>
+                </ul>
+            </div>
+        </section>
 
     </main>
-
-    <!-- RIGHT SIDEBAR: PAGE INDEX (TOC) -->
-    <aside class="sidebar-right">
-      <div class="toc-container">
-        <span class="toc-title">ON THIS PAGE</span>
-        <nav id="toc">
-          <ul>
-            <li><a href="#intro">Introduction</a></li>
-            <li><a href="#architecture">01. Architecture</a></li>
-            <li><a href="#power">02. Power Management</a></li>
-            <li><a href="#bom">03. Bill of Materials</a></li>
-            <li><a href="#source-code">04. Firmware</a></li>
-          </ul>
-        </nav>
-      </div>
-    </aside>
-
-  </div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
