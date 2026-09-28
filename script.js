@@ -1,125 +1,59 @@
-document.addEventListener("DOMContentLoaded", () => {
-  
-  /* =========================================
-     1. HIGHLIGHT DE NAVEGACIÓN EN SCROLL (TOC & SIDEBAR)
-  ========================================= */
-  const sections = document.querySelectorAll("section[id]");
-  const navLinks = document.querySelectorAll(".sidebar-right a, .sidebar-left a");
+// Calibración individual por dedo tomada del TFG
+const flexCalibration = [
+    { min: 1530, max: 2100 }, // Pulgar
+    { min: 1530, max: 2100 }, // Índice
+    { min: 1700, max: 2300 }, // Corazón
+    { min: 1650, max: 2100 }, // Anular
+    { min: 1730, max: 2000 }  // Meñique
+];
 
-  window.addEventListener("scroll", () => {
-    let current = "";
+// Mapeo lineal idéntico a la función map() de Arduino
+function arduinoMap(x, in_min, in_max, out_min, out_max) {
+    let result = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    return Math.max(out_min, Math.min(out_max, Math.round(result)));
+}
 
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop;
-      if (window.pageYOffset >= sectionTop - 120) {
-        current = section.getAttribute("id");
-      }
+// Función para actualizar la interfaz con una trama recibida
+function updateDashboard(flexValues, wristServoAngle) {
+    // 1. Actualizar Dedos (Flex1 - Flex5)
+    flexValues.forEach((adc, index) => {
+        let fingerNum = index + 1;
+        let cal = flexCalibration[index];
+        
+        // El sensor flex disminuye su ADC al flexionarse (según la memoria del TFG)
+        let angle = arduinoMap(adc, cal.max, cal.min, 0, 180); 
+        let percentage = Math.round((angle / 180) * 100);
+
+        // Actualizar UI
+        document.getElementById(`valFlex${fingerNum}`).innerText = `${adc} ADC | ${angle}°`;
+        document.getElementById(`barFlex${fingerNum}`).style.width = `${percentage}%`;
     });
 
-    navLinks.forEach((link) => {
-      link.classList.remove("active");
-      if (link.getAttribute("href") === `#${current}`) {
-        link.classList.add("active");
-      }
-    });
-  });
+    // 2. Actualizar Rotación de Muñeca (Gauge)
+    document.getElementById('wristAngle').innerText = `${wristServoAngle}°`;
+    let rotationDeg = (wristServoAngle / 180) * 180; // Mapeo a semicírculo
+    document.getElementById('wristNeedle').style.transform = `rotate(${rotationDeg}deg)`;
 
-  /* =========================================
-     2. BOTÓN INTERACTIVO PARA COPIAR CÓDIGO
-  ========================================= */
-  const codeBoxes = document.querySelectorAll(".code-box");
+    // 3. Imprimir Trama en Terminal
+    let frameText = `${flexValues.join(' ')} ${wristServoAngle}`;
+    let logElement = document.getElementById('terminalLog');
+    logElement.innerText = `[RX SPP]: ${frameText}\n` + logElement.innerText;
+}
 
-  codeBoxes.forEach((box) => {
-    const header = box.querySelector(".code-header");
-    const codeBlock = box.querySelector("code");
+// Botón de simulación para pruebas en la Web
+document.getElementById('btnSimulate').addEventListener('click', () => {
+    // Generar valores aleatorios dentro del rango de trabajo real
+    let simFlex = [
+        Math.floor(Math.random() * (2100 - 1530) + 1530), // Pulgar
+        Math.floor(Math.random() * (2100 - 1530) + 1530), // Índice
+        Math.floor(Math.random() * (2300 - 1700) + 1700), // Corazón
+        Math.floor(Math.random() * (2100 - 1650) + 1650), // Anular
+        Math.floor(Math.random() * (2000 - 1730) + 1730)  // Meñique
+    ];
+    let simWrist = Math.floor(Math.random() * 180);
 
-    if (!header || !codeBlock) return;
-
-    const copyBtn = document.createElement("button");
-    copyBtn.innerText = "COPY";
-    copyBtn.style.padding = "2px 8px";
-    copyBtn.style.fontSize = "0.6rem";
-    copyBtn.style.fontFamily = "var(--font-mono)";
-    copyBtn.style.background = "#2a2b2c";
-    copyBtn.style.color = "#ffffff";
-    copyBtn.style.border = "1px solid #444";
-    copyBtn.style.borderRadius = "3px";
-    copyBtn.style.cursor = "pointer";
-    copyBtn.style.transition = "all 0.2s ease";
-
-    copyBtn.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(codeBlock.innerText);
-        copyBtn.innerText = "COPIED!";
-        copyBtn.style.background = "#2e7d32";
-
-        setTimeout(() => {
-          copyBtn.innerText = "COPY";
-          copyBtn.style.background = "#2a2b2c";
-        }, 2000);
-      } catch (err) {
-        console.error("Error al copiar el código:", err);
-      }
-    });
-
-    header.appendChild(copyBtn);
-  });
-
-  /* =========================================
-     3. ZOOM INTERACTIVO EN IMÁGENES (LIGHTBOX)
-  ========================================= */
-  const images = document.querySelectorAll(".media-frame img");
-
-  images.forEach((img) => {
-    img.style.cursor = "zoom-in";
-
-    img.addEventListener("click", () => {
-      const overlay = document.createElement("div");
-      overlay.style.position = "fixed";
-      overlay.style.inset = "0";
-      overlay.style.background = "rgba(0, 0, 0, 0.88)";
-      overlay.style.display = "flex";
-      overlay.style.alignItems = "center";
-      overlay.style.justifyContent = "center";
-      overlay.style.zIndex = "2000";
-      overlay.style.cursor = "zoom-out";
-      overlay.style.backdropFilter = "blur(6px)";
-
-      const fullImg = document.createElement("img");
-      fullImg.src = img.src;
-      fullImg.style.maxWidth = "90vw";
-      fullImg.style.maxHeight = "90vh";
-      fullImg.style.objectFit = "contain";
-      fullImg.style.borderRadius = "4px";
-      fullImg.style.boxShadow = "0 10px 30px rgba(0,0,0,0.5)";
-
-      overlay.appendChild(fullImg);
-      document.body.appendChild(overlay);
-
-      overlay.addEventListener("click", () => {
-        overlay.remove();
-      });
-    });
-  });
-
-  /* =========================================
-     4. REVELADO SUAVE DE SECCIONES (FADE-IN EFFECT)
-  ========================================= */
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = "1";
-        entry.target.style.transform = "translateY(0)";
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll(".doc-block").forEach((block) => {
-    block.style.opacity = "0";
-    block.style.transform = "translateY(20px)";
-    block.style.transition = "opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)";
-    observer.observe(block);
-  });
-
+    updateDashboard(simFlex, simWrist);
 });
+
+// Inicializar con estado de reposo (dedos extendidos, muñeca a 0°)
+updateDashboard([2100, 2100, 2300, 2100, 2000], 0);
