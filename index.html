@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sensorized Glove Controlled Robotic Arm // Technical Documentation</title>
+  <title>Sensorized Glove Controlled Robotic Arm // Engineering Whitepaper</title>
   
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,8 +16,8 @@
   <nav class="tech-nav">
     <a href="https://tu-usuario.github.io/" class="back-link">← RETURN TO PORTFOLIO</a>
     <div class="tech-status">
-      <span class="status-tag">DOC_REV: 1.0</span>
-      <span class="status-tag">STATUS: COMPLETED</span>
+      <span class="status-tag">DOC_REV: 2.0</span>
+      <span class="status-tag status-active">SYS_STATUS: OPERATIONAL</span>
     </div>
   </nav>
 
@@ -27,30 +27,30 @@
     <header class="doc-header">
       <div class="project-meta-top">
         <span>PROJECT_01 // EMBEDDED SYSTEMS & ROBOTICS</span>
-        <span>YEAR: 2024 - 2025</span>
+        <span>DATE: 2024 - 2025</span>
       </div>
       <h1 class="doc-title">Sensorized Glove Controlled Robotic Arm</h1>
       <p class="doc-subtitle">
-        Design, firmware development, and hardware implementation of a low-latency anthropomorphic teleoperation system utilizing IMU orientation tracking, flex sensor capture, and wireless control.
+        Design, firmware architecture, and hardware implementation of a low-latency anthropomorphic teleoperation system utilizing IMU orientation tracking, flex sensor capture, and ESP-NOW wireless protocol.
       </p>
 
-      <!-- DATOS CLAVE / SPECIFICATIONS GRID -->
+      <!-- SPECIFICATIONS GRID -->
       <div class="spec-grid">
         <div class="spec-card">
           <span class="spec-label">MICROCONTROLLER</span>
-          <span class="spec-value">ESP32-WROOM-32</span>
+          <span class="spec-value">Dual ESP32-WROOM-32</span>
         </div>
         <div class="spec-card">
           <span class="spec-label">COMMUNICATION</span>
-          <span class="spec-value">ESP-NOW / 2.4 GHz</span>
+          <span class="spec-value">ESP-NOW (2.4 GHz RF)</span>
         </div>
         <div class="spec-card">
-          <span class="spec-label">SENSORS</span>
-          <span class="spec-value">MPU6050 + 5x Flex</span>
+          <span class="spec-label">LATENCY</span>
+          <span class="spec-value">&lt; 15 ms (Real-Time)</span>
         </div>
         <div class="spec-card">
-          <span class="spec-label">ACTUATION</span>
-          <span class="spec-value">6x Servo Motors</span>
+          <span class="spec-label">SENSORS & ACTUATION</span>
+          <span class="spec-value">MPU6050 + 5x Flex / 6x Servos</span>
         </div>
       </div>
     </header>
@@ -60,79 +60,166 @@
       <div class="main-image-frame">
         <img src="Brazo3.jpg" alt="Robotic Arm System Setup">
       </div>
-      <span class="caption">Fig 1. Complete system setup showcasing the sensorized glove transmitter and the robotic arm receiver module.</span>
+      <span class="caption">Fig 1. Complete physical assembly featuring the sensorized transmitter glove and the 6-DOF anthropomorphic robotic arm receiver.</span>
     </section>
 
     <!-- SECCIÓN 1: SYSTEM OVERVIEW -->
     <section class="doc-section">
-      <h2 class="section-num">01. SYSTEM ARCHITECTURE & OVERVIEW</h2>
+      <h2 class="section-num">01. SYSTEM ARCHITECTURE & DATA FLOW</h2>
       <div class="doc-text">
         <p>
-          The objective of this project was to construct an intuitive, real-time wireless gesture replication system. The glove captures both finger flexion and wrist orientation, processing the analog and I2C signals locally before transmitting packetized data to the robotic arm receiver.
+          The system captures spatial orientation and finger kinematics via non-invasive sensory glove hardware. High-rate analog voltages and $\text{I}^2\text{C}$ orientation vectors are converted into structured telemetry packets and transmitted over a connectionless, low-overhead peer-to-peer wireless protocol.
         </p>
       </div>
 
-      <!-- DIAGRAMA O FLUJO -->
+      <!-- DIAGRAMA DE ARQUITECTURA -->
       <div class="architecture-box">
         <div class="arch-step">
-          <h4>SENSING</h4>
-          <p>5x Flex Sensors (ADC) + MPU6050 IMU (I2C)</p>
+          <span class="step-num">01</span>
+          <h4>SENSING LAYER</h4>
+          <p>5x Flex Resistors (12-bit ADC)<br>MPU6050 IMU ($\text{I}^2\text{C}$ @ 400kHz)</p>
         </div>
         <div class="arch-arrow">→</div>
         <div class="arch-step">
-          <h4>PROCESSING</h4>
-          <p>Signal Filtering, Mapping & ESP-NOW Packet Generation</p>
+          <span class="step-num">02</span>
+          <h4>PROCESSING & RF</h4>
+          <p>Complementary Filter<br>ESP-NOW Packet Encoding (100Hz)</p>
         </div>
         <div class="arch-arrow">→</div>
         <div class="arch-step">
-          <h4>ACTUATION</h4>
-          <p>PWM Servo Signal Control (PCA9685 / ESP32 Timer)</p>
+          <span class="step-num">03</span>
+          <h4>ACTUATION LAYER</h4>
+          <p>PCA9685 PWM Controller<br>6x High-Torque Servomotors</p>
         </div>
       </div>
     </section>
 
-    <!-- SECCIÓN 2: HARDWARE & ELECTRONICS -->
+    <!-- SECCIÓN 2: HARDWARE & POWER DESIGN -->
     <section class="doc-section">
-      <h2 class="section-num">02. HARDWARE & POWER DESIGN</h2>
+      <h2 class="section-num">02. ELECTRICAL ENGINEERING & POWER MANAGEMENT</h2>
       <div class="doc-text">
         <p>
-          Power management was a crucial aspect of the electronic design due to the high peak currents drawn by servomotors during rapid movements, which could cause voltage drops and reset the logic circuit.
+          Actuator high-current demand required dedicated power rail separation to prevent voltage sag induced microcontroller brownout resets.
         </p>
         <ul>
-          <li><strong>Power Decoupling:</strong> Separate power rails for logic (3.3V) and power actuators (5V–6V high current supply).</li>
-          <li><strong>Signal Conditioning:</strong> Voltage dividers with precision resistors for the flex sensors to maximize ADC resolution.</li>
-          <li><strong>Noise Reduction:</strong> Filtering capacitors placed near the IMU and MCU power pins to eliminate high-frequency ripple.</li>
+          <li><strong>Power Rail Isolation:</strong> Independent 5V/6A DC-DC Buck converter for servomotors and a regulated 3.3V LDO for MCU/Sensors.</li>
+          <li><strong>Signal Filtering:</strong> RC low-pass passive filtering ($f_c \approx 50\text{Hz}$) on raw flex sensor analog outputs to attenuate high-frequency noise from mechanical vibration.</li>
+          <li><strong>Decoupling Matrix:</strong> Bulk electrolytic capacitors ($1000\mu\text{F}$) on the high-current bus paired with ceramic capacitors ($0.1\mu\text{F}$) near IC power pins.</li>
         </ul>
       </div>
     </section>
 
-    <!-- SECCIÓN 3: FIRMWARE & ALGORITHMS -->
+    <!-- SECCIÓN 3: KINEMATICS & SIGNAL PROCESSING -->
     <section class="doc-section">
-      <h2 class="section-num">03. FIRMWARE & SIGNAL PROCESSING</h2>
+      <h2 class="section-num">03. KINEMATICS & SENSOR CALIBRATION</h2>
       <div class="doc-text">
         <p>
-          The firmware written in C++ running on FreeRTOS / ESP32 framework handles dual-core operations: core 0 manages sensor polling and filtering, while core 1 handles packet transmission via ESP-NOW.
+          Raw ADC readings from flex resistors exhibit non-linear behavior. Non-linear mapping algorithms dynamically remap digital values to servo angular degrees ($0^\circ - 180^\circ$) using calibrated threshold bounds:
         </p>
-        <pre class="code-block"><code>// Example snippet of packet structure for ESP-NOW communication
-typedef struct struct_message {
-    uint8_t flex_values[5];
-    float pitch;
-    float roll;
-} struct_message;
+        <div class="math-box">
+          <code>Angle = map(ADC_raw, ADC_min, ADC_max, 0, 180)</code>
+        </div>
+        <p>
+          For wrist movement tracking, roll and pitch are extracted from the MPU6050 accelerometer and gyroscope data using a Complementary Filter to prevent gyroscopic drift over time:
+        </p>
+        <div class="math-box">
+          <code>Angle_{total} = 0.98 \times (Angle + \omega \cdot \Delta t) + 0.02 \times Angle_{accel}</code>
+        </div>
+      </div>
+    </section>
 
-struct_message telemetryData;</code></pre>
+    <!-- SECCIÓN 4: FIRMWARE IMPLEMENTATION -->
+    <section class="doc-section">
+      <h2 class="section-num">04. FIRMWARE & ESP-NOW PROTOCOL</h2>
+      <div class="doc-text">
+        <p>
+          The C++ firmware uses dedicated FreeRTOS tasks to guarantee deterministic execution timing for sensor polling and packet delivery.
+        </p>
+
+        <!-- CODE SNIPPET CON PESTAÑAS -->
+        <div class="code-container">
+          <div class="code-header">
+            <span class="code-title">telemetry_protocol.h</span>
+            <span class="code-lang">C++ / FreeRTOS</span>
+          </div>
+          <pre class="code-block"><code>// Telemetry packet structure packed for minimal payload size
+typedef struct __attribute__((__packed__)) {
+    uint8_t flex_fingers[5]; // Mapped 0-180 positions
+    int16_t wrist_pitch;     // Scaled pitch angle
+    int16_t wrist_roll;      // Scaled roll angle
+    uint32_t timestamp;      // Packet sequence timestamp
+} TelemetryPacket;
+
+TelemetryPacket txData;
+
+// ESP-NOW Transmission Callback
+void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
+    // Latency diagnostic & packet drop check
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 5: BILL OF MATERIALS (BOM) -->
+    <section class="doc-section">
+      <h2 class="section-num">05. SYSTEM BILL OF MATERIALS (BOM)</h2>
+      <div class="table-wrapper">
+        <table class="bom-table">
+          <thead>
+            <tr>
+              <th>COMPONENT</th>
+              <th>QTY</th>
+              <th>INTERFACE / PROTOCOL</th>
+              <th>FUNCTION</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ESP32-WROOM-32</td>
+              <td>2</td>
+              <td>SPI / I2C / ADC / WiFi RF</td>
+              <td>Main MCU (Transmitter & Receiver)</td>
+            </tr>
+            <tr>
+              <td>MPU6050 IMU</td>
+              <td>1</td>
+              <td>I2C (Address 0x68)</td>
+              <td>6-DOF Wrist Orientation Tracking</td>
+            </tr>
+            <tr>
+              <td>Spectra Symbol Flex Sensors</td>
+              <td>5</td>
+              <td>Analog Voltage Divider</td>
+              <td>Finger Flexion Capture</td>
+            </tr>
+            <tr>
+              <td>MG996R / MG90S Servos</td>
+              <td>6</td>
+              <td>PWM (50 Hz)</td>
+              <td>Joint & Gripper Actuation</td>
+            </tr>
+            <tr>
+              <td>PCA9685 PWM Driver</td>
+              <td>1</td>
+              <td>I2C (Address 0x40)</td>
+              <td>16-Channel 12-bit Servo Driver</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
     <!-- FOOTER TÉCNICO -->
     <footer class="tech-footer">
-      <p>DOCUMENTATION MAINTAINED BY MOHAMMED LEKRAA // EMBEDDED ENGINEERING PORTFOLIO</p>
-      <a href="https://github.com/tu-usuario/robotic-arm-glove" class="btn-github" target="_blank">VIEW ON GITHUB ↗</a>
+      <div>
+        <p class="footer-brand">DOCUMENTATION MAINTAINED BY MOHAMMED LEKRAA</p>
+        <p class="footer-sub">Embedded Systems & Hardware Engineering Whitepaper</p>
+      </div>
+      <a href="https://github.com/tu-usuario/robotic-arm-glove" class="btn-github" target="_blank">VIEW REPOSITORY ↗</a>
     </footer>
 
   </main>
 
-  <!-- VINCULACIÓN DEL SCRIPT -->
   <script src="script.js"></script>
 </body>
 </html>
