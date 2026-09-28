@@ -1,552 +1,136 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Sensorized Glove Robotic Arm | Mohammed Lekraa</title>
-
-  <meta
-    name="description"
-    content="Design and development of a robotic arm controlled by a sensorized glove. An embedded systems project by Mohammed Lekraa."
-  >
-
+  <title>Sensorized Glove Controlled Robotic Arm // Technical Documentation</title>
+  
   <link rel="stylesheet" href="styles.css">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
-    rel="stylesheet"
-  >
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-  <!-- NAVIGATION -->
-
-  <nav class="navbar">
-    <a href="#top" class="nav-logo">ML // PROJECT_001</a>
-
-    <div class="nav-links">
-      <a href="#overview" class="nav-btn active">OVERVIEW</a>
-      <a href="#architecture" class="nav-btn">SYSTEM</a>
-      <a href="#hardware" class="nav-btn">HARDWARE</a>
-      <a href="#firmware" class="nav-btn">FIRMWARE</a>
-      <a href="#results" class="nav-btn">RESULTS</a>
+  <!-- NAVBAR TÉCNICO -->
+  <nav class="tech-nav">
+    <a href="https://tu-usuario.github.io/" class="back-link">← RETURN TO PORTFOLIO</a>
+    <div class="tech-status">
+      <span class="status-tag">DOC_REV: 1.0</span>
+      <span class="status-tag">STATUS: COMPLETED</span>
     </div>
   </nav>
 
+  <main class="tech-container">
 
-  <main id="top">
-
-    <!-- HERO -->
-
-    <header class="project-hero" id="overview">
-
-      <div class="hero-content reveal">
-
-        <a href="https://mohammedlekraa.github.io/"
-           class="back-link">
-          ← BACK TO PORTFOLIO
-        </a>
-
-        <p class="eyebrow">EMBEDDED SYSTEMS // ROBOTICS</p>
-
-        <h1>
-          Sensorized Glove<br>
-          <span>Controlled Robotic Arm</span>
-        </h1>
-
-        <p class="hero-description">
-          Design and development of a robotic hand and forearm
-          controlled through a wearable glove, combining sensor
-          acquisition, embedded processing, wireless communication
-          and servo actuation.
-        </p>
-
-        <div class="hero-tags">
-          <span>ESP32</span>
-          <span>C / C++</span>
-          <span>IMU</span>
-          <span>FLEX SENSORS</span>
-          <span>BLUETOOTH</span>
-        </div>
-
-        <div class="hero-actions">
-          <a href="#architecture" class="btn-primary">
-            EXPLORE THE SYSTEM ↓
-          </a>
-
-          <a href="#gallery" class="btn-secondary">
-            VIEW GALLERY
-          </a>
-        </div>
-
+    <!-- HERO HEADER -->
+    <header class="doc-header">
+      <div class="project-meta-top">
+        <span>PROJECT_01 // EMBEDDED SYSTEMS & ROBOTICS</span>
+        <span>YEAR: 2024 - 2025</span>
       </div>
-
-      <div class="hero-image reveal">
-        <img
-          src="assets/images/robotic-arm-main.jpg"
-          alt="Sensorized glove controlled robotic arm prototype"
-        >
-        <span class="image-caption">
-          ROBOTIC ARM // FINAL PROTOTYPE
-        </span>
-      </div>
-
-    </header>
-
-
-    <!-- PROJECT SNAPSHOT -->
-
-    <section class="snapshot section reveal">
-
-      <div class="snapshot-item">
-        <span class="snapshot-label">PROJECT TYPE</span>
-        <strong>Biomedical Engineering TFG</strong>
-      </div>
-
-      <div class="snapshot-item">
-        <span class="snapshot-label">MAIN CONTROLLER</span>
-        <strong>ESP32</strong>
-      </div>
-
-      <div class="snapshot-item">
-        <span class="snapshot-label">INPUT</span>
-        <strong>Flex Sensors + MPU6050</strong>
-      </div>
-
-      <div class="snapshot-item">
-        <span class="snapshot-label">COMMUNICATION</span>
-        <strong>Bluetooth</strong>
-      </div>
-
-    </section>
-
-
-    <!-- PROJECT OBJECTIVE -->
-
-    <section class="section content-section reveal" id="objective">
-
-      <div class="section-heading">
-        <p class="eyebrow">01 // PROJECT BACKGROUND</p>
-        <h2>From human movement<br>to robotic actuation.</h2>
-      </div>
-
-      <div class="two-column">
-
-        <div>
-          <h3>The objective</h3>
-
-          <p>
-            The project explores the design of a low-cost robotic
-            system capable of reproducing hand and wrist movements
-            through a sensorized glove.
-          </p>
-
-          <p>
-            The main challenge was not only to capture movement,
-            but to integrate sensing, processing, communication,
-            mechanical actuation and power electronics into a
-            functional system.
-          </p>
-        </div>
-
-        <div class="highlight-box">
-          <span class="box-label">ENGINEERING APPROACH</span>
-
-          <p>
-            A complete hardware-software system in which physical
-            movement is measured, processed and translated into
-            mechanical action in real time.
-          </p>
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- SYSTEM ARCHITECTURE -->
-
-    <section class="section content-section reveal" id="architecture">
-
-      <div class="section-heading">
-        <p class="eyebrow">02 // SYSTEM ARCHITECTURE</p>
-        <h2>How the system works.</h2>
-        <p class="section-intro">
-          The system is divided into sensing, processing,
-          communication and actuation stages.
-        </p>
-      </div>
-
-      <div class="architecture-image">
-        <img
-          src="assets/images/system-architecture.png"
-          alt="Block diagram of the robotic arm system architecture"
-        >
-      </div>
-
-      <div class="architecture-grid">
-
-        <article class="architecture-card">
-          <span class="step-number">01</span>
-          <h3>Motion acquisition</h3>
-          <p>
-            Flex sensors capture finger bending, while the MPU6050
-            measures wrist orientation and angular movement.
-          </p>
-        </article>
-
-        <article class="architecture-card">
-          <span class="step-number">02</span>
-          <h3>Embedded processing</h3>
-          <p>
-            The microcontroller reads sensor signals, applies
-            calibration and processes the measurements.
-          </p>
-        </article>
-
-        <article class="architecture-card">
-          <span class="step-number">03</span>
-          <h3>Wireless transmission</h3>
-          <p>
-            Processed movement data is transmitted between the
-            glove and the robotic arm using Bluetooth.
-          </p>
-        </article>
-
-        <article class="architecture-card">
-          <span class="step-number">04</span>
-          <h3>Mechanical actuation</h3>
-          <p>
-            Servo motors control the robotic hand and forearm,
-            translating the received commands into movement.
-          </p>
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- HARDWARE -->
-
-    <section class="section content-section reveal" id="hardware">
-
-      <div class="section-heading">
-        <p class="eyebrow">03 // HARDWARE DESIGN</p>
-        <h2>Electronics and components.</h2>
-      </div>
-
-      <div class="hardware-grid">
-
-        <article class="hardware-card">
-          <img
-            src="assets/images/glove.jpg"
-            alt="Sensorized glove"
-          >
-
-          <div class="hardware-info">
-            <span class="eyebrow">INPUT SYSTEM</span>
-            <h3>Sensorized glove</h3>
-            <p>
-              Five flex sensors measure finger bending.
-              The MPU6050 provides inertial measurements
-              for wrist movement.
-            </p>
-          </div>
-        </article>
-
-        <article class="hardware-card">
-          <img
-            src="assets/images/electronics.jpg"
-            alt="Embedded electronics"
-          >
-
-          <div class="hardware-info">
-            <span class="eyebrow">CONTROL SYSTEM</span>
-            <h3>Microcontrollers and electronics</h3>
-            <p>
-              ESP32-based controllers acquire, process and
-              exchange data while managing the interaction
-              with the actuators.
-            </p>
-          </div>
-        </article>
-
-        <article class="hardware-card">
-          <img
-            src="assets/images/robotic-arm-main.jpg"
-            alt="Robotic hand and forearm"
-          >
-
-          <div class="hardware-info">
-            <span class="eyebrow">OUTPUT SYSTEM</span>
-            <h3>Servo-driven robotic arm</h3>
-            <p>
-              Servo motors pull tendon-like strings to produce
-              finger movements in the 3D-printed hand.
-            </p>
-          </div>
-        </article>
-
-      </div>
-
-      <div class="technical-note">
-        <strong>Design consideration</strong>
-        <p>
-          Power distribution and control-signal integrity were
-          important challenges during integration, particularly
-          when multiple servos operated simultaneously.
-        </p>
-      </div>
-
-    </section>
-
-
-    <!-- FIRMWARE -->
-
-    <section class="section content-section reveal" id="firmware">
-
-      <div class="section-heading">
-        <p class="eyebrow">04 // FIRMWARE DEVELOPMENT</p>
-        <h2>Turning sensor data<br>into movement.</h2>
-      </div>
-
-      <div class="two-column">
-
-        <div>
-          <h3>Sensor acquisition and processing</h3>
-
-          <p>
-            The firmware reads analog signals from the flex sensors
-            and inertial data from the MPU6050. Calibration and
-            filtering are used to obtain measurements suitable
-            for controlling the robotic system.
-          </p>
-
-          <p>
-            The processed values are mapped to actuator commands,
-            allowing the robotic hand to reproduce the movements
-            detected by the glove.
-          </p>
-        </div>
-
-        <div class="code-panel">
-          <div class="code-header">
-            <span>FIRMWARE WORKFLOW</span>
-            <span>C / C++</span>
-          </div>
-
-          <pre><code>Read sensor data
-       ↓
-Apply calibration
-       ↓
-Filter measurements
-       ↓
-Map values to servo angles
-       ↓
-Transmit / update commands
-       ↓
-Execute robotic movement</code></pre>
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- CHALLENGES -->
-
-    <section class="section content-section reveal" id="challenges">
-
-      <div class="section-heading">
-        <p class="eyebrow">05 // ENGINEERING CHALLENGES</p>
-        <h2>Building a system<br>that works as one.</h2>
-      </div>
-
-      <div class="challenge-list">
-
-        <article class="challenge-item">
-          <span class="challenge-number">01</span>
-
-          <div>
-            <h3>Power stability</h3>
-            <p>
-              Simultaneous servo operation introduced power
-              disturbances that affected system stability.
-              This highlighted the importance of separating
-              power and control considerations.
-            </p>
-          </div>
-        </article>
-
-        <article class="challenge-item">
-          <span class="challenge-number">02</span>
-
-          <div>
-            <h3>IMU drift and calibration</h3>
-            <p>
-              Inertial measurements required calibration and
-              filtering to reduce drift and improve the
-              consistency of wrist-angle estimation.
-            </p>
-          </div>
-        </article>
-
-        <article class="challenge-item">
-          <span class="challenge-number">03</span>
-
-          <div>
-            <h3>Mechanical integration</h3>
-            <p>
-              The interaction between printed parts, tendons
-              and servos required iterative adjustments to
-              obtain reliable movement.
-            </p>
-          </div>
-        </article>
-
-        <article class="challenge-item">
-          <span class="challenge-number">04</span>
-
-          <div>
-            <h3>System integration</h3>
-            <p>
-              Individual components had to operate together
-              reliably, requiring repeated testing across
-              sensing, firmware, communication and actuation.
-            </p>
-          </div>
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- RESULTS -->
-
-    <section class="section content-section reveal" id="results">
-
-      <div class="section-heading">
-        <p class="eyebrow">06 // TESTING AND RESULTS</p>
-        <h2>From prototype<br>to integrated system.</h2>
-      </div>
-
-      <div class="two-column">
-
-        <div>
-          <h3>Outcome</h3>
-
-          <p>
-            The project resulted in an integrated prototype
-            combining a sensorized glove, embedded controllers,
-            wireless communication and a servo-driven robotic arm.
-          </p>
-
-          <p>
-            The development process provided practical experience
-            in hardware-software integration, sensor calibration,
-            electronics debugging and iterative prototyping.
-          </p>
-        </div>
-
-        <div class="highlight-box">
-          <span class="box-label">KEY TAKEAWAY</span>
-
-          <p>
-            A successful embedded system depends not only on
-            individual components, but on how sensing, processing,
-            power, communication and actuation interact as a whole.
-          </p>
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- GALLERY -->
-
-    <section class="section content-section reveal" id="gallery">
-
-      <div class="section-heading">
-        <p class="eyebrow">07 // PROJECT GALLERY</p>
-        <h2>Inside the development process.</h2>
-      </div>
-
-      <div class="gallery-grid">
-
-        <img
-          src="assets/images/robotic-arm-main.jpg"
-          alt="Robotic arm prototype"
-        >
-
-        <img
-          src="assets/images/glove.jpg"
-          alt="Sensorized glove"
-        >
-
-        <img
-          src="assets/images/electronics.jpg"
-          alt="Electronics assembly"
-        >
-
-        <img
-          src="assets/images/prototype-testing.jpg"
-          alt="Prototype testing"
-        >
-
-      </div>
-
-    </section>
-
-
-    <!-- FINAL CTA -->
-
-    <section class="project-end reveal">
-
-      <p class="eyebrow">MOHAMMED LEKRAA // ENGINEERING</p>
-
-      <h2>Interested in the project?</h2>
-
-      <p>
-        Explore more of my work or get in touch to discuss
-        embedded systems, electronics and engineering opportunities.
+      <h1 class="doc-title">Sensorized Glove Controlled Robotic Arm</h1>
+      <p class="doc-subtitle">
+        Design, firmware development, and hardware implementation of a low-latency anthropomorphic teleoperation system utilizing IMU orientation tracking, flex sensor capture, and wireless control.
       </p>
 
-      <div class="hero-actions">
-        <a
-          href="https://mohammedlekraa.github.io/"
-          class="btn-primary"
-        >
-          BACK TO PORTFOLIO ↗
-        </a>
-
-        <a
-          href="mailto:contact@mlekraa.com"
-          class="btn-secondary"
-        >
-          CONTACT ME
-        </a>
+      <!-- DATOS CLAVE / SPECIFICATIONS GRID -->
+      <div class="spec-grid">
+        <div class="spec-card">
+          <span class="spec-label">MICROCONTROLLER</span>
+          <span class="spec-value">ESP32-WROOM-32</span>
+        </div>
+        <div class="spec-card">
+          <span class="spec-label">COMMUNICATION</span>
+          <span class="spec-value">ESP-NOW / 2.4 GHz</span>
+        </div>
+        <div class="spec-card">
+          <span class="spec-label">SENSORS</span>
+          <span class="spec-value">MPU6050 + 5x Flex</span>
+        </div>
+        <div class="spec-card">
+          <span class="spec-label">ACTUATION</span>
+          <span class="spec-value">6x Servo Motors</span>
+        </div>
       </div>
+    </header>
 
+    <!-- BANNER DE IMAGEN PRINCIPAL -->
+    <section class="doc-media">
+      <div class="main-image-frame">
+        <img src="Brazo3.jpg" alt="Robotic Arm System Setup">
+      </div>
+      <span class="caption">Fig 1. Complete system setup showcasing the sensorized glove transmitter and the robotic arm receiver module.</span>
     </section>
 
+    <!-- SECCIÓN 1: SYSTEM OVERVIEW -->
+    <section class="doc-section">
+      <h2 class="section-num">01. SYSTEM ARCHITECTURE & OVERVIEW</h2>
+      <div class="doc-text">
+        <p>
+          The objective of this project was to construct an intuitive, real-time wireless gesture replication system. The glove captures both finger flexion and wrist orientation, processing the analog and I2C signals locally before transmitting packetized data to the robotic arm receiver.
+        </p>
+      </div>
+
+      <!-- DIAGRAMA O FLUJO -->
+      <div class="architecture-box">
+        <div class="arch-step">
+          <h4>SENSING</h4>
+          <p>5x Flex Sensors (ADC) + MPU6050 IMU (I2C)</p>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-step">
+          <h4>PROCESSING</h4>
+          <p>Signal Filtering, Mapping & ESP-NOW Packet Generation</p>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-step">
+          <h4>ACTUATION</h4>
+          <p>PWM Servo Signal Control (PCA9685 / ESP32 Timer)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: HARDWARE & ELECTRONICS -->
+    <section class="doc-section">
+      <h2 class="section-num">02. HARDWARE & POWER DESIGN</h2>
+      <div class="doc-text">
+        <p>
+          Power management was a crucial aspect of the electronic design due to the high peak currents drawn by servomotors during rapid movements, which could cause voltage drops and reset the logic circuit.
+        </p>
+        <ul>
+          <li><strong>Power Decoupling:</strong> Separate power rails for logic (3.3V) and power actuators (5V–6V high current supply).</li>
+          <li><strong>Signal Conditioning:</strong> Voltage dividers with precision resistors for the flex sensors to maximize ADC resolution.</li>
+          <li><strong>Noise Reduction:</strong> Filtering capacitors placed near the IMU and MCU power pins to eliminate high-frequency ripple.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: FIRMWARE & ALGORITHMS -->
+    <section class="doc-section">
+      <h2 class="section-num">03. FIRMWARE & SIGNAL PROCESSING</h2>
+      <div class="doc-text">
+        <p>
+          The firmware written in C++ running on FreeRTOS / ESP32 framework handles dual-core operations: core 0 manages sensor polling and filtering, while core 1 handles packet transmission via ESP-NOW.
+        </p>
+        <pre class="code-block"><code>// Example snippet of packet structure for ESP-NOW communication
+typedef struct struct_message {
+    uint8_t flex_values[5];
+    float pitch;
+    float roll;
+} struct_message;
+
+struct_message telemetryData;</code></pre>
+      </div>
+    </section>
+
+    <!-- FOOTER TÉCNICO -->
+    <footer class="tech-footer">
+      <p>DOCUMENTATION MAINTAINED BY MOHAMMED LEKRAA // EMBEDDED ENGINEERING PORTFOLIO</p>
+      <a href="https://github.com/tu-usuario/robotic-arm-glove" class="btn-github" target="_blank">VIEW ON GITHUB ↗</a>
+    </footer>
+
   </main>
-
-
-  <footer class="footer">
-    <span>MOHAMMED LEKRAA © 2026</span>
-    <span>EMBEDDED SYSTEMS // ROBOTICS</span>
-  </footer>
-
-  <script src="script.js"></script>
 
 </body>
 </html>
