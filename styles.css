@@ -1,11 +1,83 @@
 /* =========================================
-   PROJECT DETAIL LAYOUT & SIDEBAR
+   1. VARIABLES & RESET GLOBAL
 ========================================= */
+:root {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  --bg-color: #f7f5ef;        /* Fondo beige claro/papel técnico */
+  --panel-bg: #ffffff;        /* Fondo blanco para tarjetas */
+  --text-main: #111111;       /* Texto negro principal */
+  --text-secondary: #3f3f3f;  /* Texto gris oscuro */
+  --text-muted: #707070;      /* Texto gris suave */
+  --border-color: #dedbd2;    /* Bordes finos estilo plano */
+}
 
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================
+   2. NAVBAR
+========================================= */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4rem;
+  background: rgba(247, 245, 239, 0.9);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  z-index: 1000;
+}
+
+.nav-logo {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  text-decoration: none;
+}
+
+.nav-btn {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-main);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--text-main);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.nav-btn:hover {
+  background: var(--text-main);
+  color: #ffffff;
+}
+
+/* =========================================
+   3. LAYOUT DEL PROYECTO & SIDEBAR
+========================================= */
 .project-layout {
   max-width: 1400px;
   margin: 0 auto;
-  padding-top: 5rem;
+  padding-top: 4rem;
   display: grid;
   grid-template-columns: 280px minmax(0, 1fr);
   gap: 3rem;
@@ -18,6 +90,15 @@
 .sidebar-sticky {
   position: sticky;
   top: 6rem;
+}
+
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 1px;
 }
 
 .sidebar-menu {
@@ -76,6 +157,17 @@
   margin-bottom: 2rem;
 }
 
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.section-intro {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
 .intro-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -97,7 +189,9 @@
   display: block;
 }
 
-/* INTERACTIVE CAD MODULE */
+/* =========================================
+   4. MÓDULO INTERACTIVO CAD
+========================================= */
 .cad-interactive {
   background: var(--panel-bg);
   border: 1px solid var(--border-color);
@@ -125,7 +219,7 @@
 
 .cad-step-btn.active, .cad-step-btn:hover {
   background: var(--text-main);
-  color: #fff;
+  color: #ffffff;
 }
 
 .cad-step-display {
@@ -142,7 +236,9 @@
   border-radius: 4px;
 }
 
-/* ARCHITECTURE DIAGRAM */
+/* =========================================
+   5. DIAGRAMA DE ARQUITECTURA
+========================================= */
 .arch-diagram {
   display: flex;
   align-items: center;
@@ -183,6 +279,11 @@
   color: var(--text-muted);
 }
 
+.arch-arrow {
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
 .arch-detail-box {
   background: rgba(0, 0, 0, 0.02);
   border: 1px dashed var(--border-color);
@@ -192,7 +293,9 @@
   font-size: 0.75rem;
 }
 
-/* PCB TOGGLE */
+/* =========================================
+   6. SELECTOR PCB
+========================================= */
 .pcb-toggle-container {
   display: flex;
   gap: 1rem;
@@ -211,7 +314,7 @@
 
 .pcb-btn.active {
   background: var(--text-main);
-  color: #fff;
+  color: #ffffff;
 }
 
 .pcb-card {
@@ -224,6 +327,14 @@
   border-radius: 6px;
 }
 
+.pcb-details ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
 .pcb-image img {
   width: 100%;
   height: 220px;
@@ -231,7 +342,9 @@
   border-radius: 4px;
 }
 
-/* CHALLENGES GRID */
+/* =========================================
+   7. TARJETAS DE RETOS Y SOLUCIONES
+========================================= */
 .challenges-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -267,19 +380,45 @@
   margin-bottom: 0.6rem;
 }
 
-/* RESPONSIVE DESIGN */
+.challenge-solution {
+  background: rgba(0, 0, 0, 0.03);
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+/* =========================================
+   8. RESULTADOS Y RESPONSIVE
+========================================= */
+.results-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.results-box {
+  background: var(--panel-bg);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  border-radius: 6px;
+}
+
+.results-box ul {
+  padding-left: 1.2rem;
+  margin-top: 0.5rem;
+}
+
 @media (max-width: 992px) {
   .project-layout {
     grid-template-columns: 1fr;
     padding-top: 4rem;
   }
   .project-sidebar {
-    display: none; /* Amaguem l'índex en pantalles xicotetes */
+    display: none;
   }
   .project-content {
     padding: 2rem;
   }
-  .challenges-grid, .intro-grid, .cad-step-display, .pcb-card {
+  .challenges-grid, .intro-grid, .cad-step-display, .pcb-card, .results-content {
     grid-template-columns: 1fr;
   }
   .arch-diagram {
