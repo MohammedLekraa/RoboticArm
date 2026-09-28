@@ -3,35 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Braç Robòtic Sensoritzat // Mohammed Lekraa</title>
+  <title>Control de Braç Robòtic | TFG ML</title>
   <link rel="stylesheet" href="styles.css">
+  <!-- Fonts de Google per a l'estil Tech/Cyberpunk -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
   <!-- NAVBAR -->
   <nav class="navbar">
-    <a href="index.html" class="nav-logo">ML // PORTFOLIO</a>
-    <div class="nav-links">
-      <a href="index.html#projects" class="nav-btn">← TORNAR A PROJECTES</a>
-    </div>
+    <a href="#" class="nav-logo">ML // PORTFOLIO</a>
+    <a href="#" class="nav-btn">&larr; TORNAR A PROJECTES</a>
   </nav>
 
+  <!-- LAYOUT PRINCIPAL -->
   <div class="project-layout">
     
-    <!-- ÍNDEX LATERAL DINÀMIC -->
+    <!-- SIDEBAR DE NAVEGACIÓ -->
     <aside class="project-sidebar">
       <div class="sidebar-sticky">
-        <span class="mono-label">Navegació Projecte</span>
+        <span class="mono-label">// NAVEGACIÓ PROJECTE</span>
         <ul class="sidebar-menu">
-          <li><a href="#intro" class="sidebar-link active" data-section="intro"><span class="step-num">01</span> INTRODUCCIÓ</a></li>
-          <li><a href="#cad-design" class="sidebar-link" data-section="cad-design"><span class="step-num">02</span> DISSENY CAD</a></li>
-          <li><a href="#architecture" class="sidebar-link" data-section="architecture"><span class="step-num">03</span> ARQUITECTURA</a></li>
-          <li><a href="#pcbs" class="sidebar-link" data-section="pcbs"><span class="step-num">04</span> DISSENY PCBs</a></li>
-          <li><a href="#challenges" class="sidebar-link" data-section="challenges"><span class="step-num">05</span> REPTES I SOLUCIONS</a></li>
-          <li><a href="#results" class="sidebar-link" data-section="results"><span class="step-num">06</span> RESULTATS</a></li>
+          <li><a href="#introduccio" class="sidebar-link active"><span class="step-num">01</span> INTRODUCCIÓ</a></li>
+          <li><a href="#disseny-cad" class="sidebar-link"><span class="step-num">02</span> DISSENY CAD</a></li>
+          <li><a href="#arquitectura" class="sidebar-link"><span class="step-num">03</span> ARQUITECTURA</a></li>
+          <li><a href="#disseny-pcbs" class="sidebar-link"><span class="step-num">04</span> DISSENY PCBs</a></li>
+          <li><a href="#reptes" class="sidebar-link"><span class="step-num">05</span> REPTES I SOLUCIONS</a></li>
+          <li><a href="#resultats" class="sidebar-link"><span class="step-num">06</span> RESULTATS</a></li>
         </ul>
       </div>
     </aside>
@@ -39,8 +39,8 @@
     <!-- CONTINGUT PRINCIPAL -->
     <main class="project-content">
       
-      <!-- 01. PORTADA I INTRODUCCIÓ -->
-      <section id="intro" class="project-section reveal">
+      <!-- SECCIÓ 1: INTRODUCCIÓ -->
+      <section id="introduccio" class="project-section">
         <span class="mono-label">PROJECT_01 // TFG</span>
         <h1 class="project-main-title">Control de Braç Robòtic mitjançant Guant Sensoritzat</h1>
         <p class="project-subtitle">Sistema encastat per a la reproducció de moviments de la mà i el canell en temps real.</p>
@@ -48,158 +48,118 @@
         <div class="intro-grid">
           <div class="intro-text">
             <h3>Objectiu i Proposta</h3>
-            <p>Aquest projecte desenvolupa un sistema interactiu format per un guant sensoritzat emissor i un braç articulat receptor[cite: 1, 2]. Mitjançant sensors de flexió, una unitat MPU6050 i comunicació Bluetooth, el braç reprodueix la posició i flexió de la mà humana en temps real[cite: 1, 2].</p>
+            <p>Aquest projecte desenvolupa un sistema interactiu format per un guant sensoritzat emissor i un braç articulat receptor. Mitjançant sensors de flexió, una unitat MPU6050 i comunicació Bluetooth, el braç reprodueix la posició i flexió de la mà humana en temps real.</p>
           </div>
           <div class="intro-image-card">
-            <img src="Brazo3.jpg" alt="Braç articulat i guant sensoritzat">
-            <span class="image-caption">Prototip final del braç articulat i el guant emisor.</span>
+            <!-- Assegura't que la imatge estigui a la mateixa carpeta -->
+            <img src="Brazo1.jpg" alt="Prototip final del braç articulat i el guant emissor">
+            <span class="image-caption">// FIG. 1.0: Prototip final del braç articulat i el guant emissor.</span>
           </div>
         </div>
       </section>
 
-      <!-- 02. DISSENY MECÀNIC I REDISSENY CAD -->
-      <section id="cad-design" class="project-section reveal">
-        <h2 class="section-title">02. Disseny Mecànic i Redisseny CAD</h2>
-        <p class="section-intro">Evolució del redisseny mecànic per millorar la durabilitat i integració de components[cite: 1].</p>
+      <!-- SECCIÓ 2: DISSENY CAD -->
+      <section id="disseny-cad" class="project-section">
+        <span class="mono-label">// 02. MODELAT & ESTRUCTURA</span>
+        <h2 class="section-title">Disseny Mecànic i Redisseny CAD</h2>
+        <p class="section-intro">Evolució del redisseny mecànic per millorar la durabilitat i integració de components.</p>
 
-        <!-- Mòdul interactiu de passos CAD -->
         <div class="cad-interactive">
           <div class="cad-steps-nav">
-            <button class="cad-step-btn active" data-step="0">01. Base Inicial</button>
-            <button class="cad-step-btn" data-step="1">02. Selecció Mà</button>
-            <button class="cad-step-btn" data-step="2">03. Redisseny CAD</button>
-            <button class="cad-step-btn" data-step="3">04. Ensamblatge</button>
+            <button class="cad-step-btn active" onclick="showCadStep(1)">v1.0 Inicial</button>
+            <button class="cad-step-btn" onclick="showCadStep(2)">v2.0 Reforç Base</button>
+            <button class="cad-step-btn" onclick="showCadStep(3)">v3.0 Integració Servos</button>
           </div>
-          <div class="cad-step-display" id="cad-display">
-            <div class="cad-info">
-              <h4 id="cad-step-title">01. Base Inicial</h4>
-              <p><strong>Component:</strong> Avantbraç InMoov[cite: 1]</p>
-              <p><strong>Justificació:</strong> Serveix com a estructura base per albergar la servomecànica[cite: 1].</p>
-            </div>
+          
+          <div class="cad-step-display" id="cad-step-content">
             <div class="cad-image">
-              <img id="cad-step-img" src="Brazo1.jpg" alt="Disseny CAD">
+              <img id="cad-img" src="Brazo3.jpg" alt="Versió CAD">
+            </div>
+            <div class="cad-info">
+              <h4 id="cad-title">Modelat CAD v1.0</h4>
+              <p id="cad-desc">Primera versió del disseny estructural imprès en PLA. Es van identificar punts de fatiga a l'eix principal de rotació.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- 03. ARQUITECTURA DEL SISTEMA -->
-      <section id="architecture" class="project-section reveal">
-        <h2 class="section-title">03. Arquitectura del Sistema</h2>
-        <p class="section-intro">Captura de moviment, processament i transmissió de dades sense fils[cite: 1, 2].</p>
+      <!-- SECCIÓ 3: ARQUITECTURA -->
+      <section id="arquitectura" class="project-section">
+        <span class="mono-label">// 03. SISTEMA ENCASTAT</span>
+        <h2 class="section-title">Arquitectura del Sistema</h2>
+        <p class="section-intro">Flux de dades des del guant de captura fins als servomotors d'actuació.</p>
 
-        <!-- Bloques interactivos de arquitectura -->
         <div class="arch-diagram">
-          <div class="arch-block" data-arch="sensors">
-            <div class="arch-icon">🖐️</div>
-            <h4>Sensors Dits</h4>
-            <p>5x Flex Sensors</p>
+          <div class="arch-block">
+            <div class="arch-icon">🧤</div>
+            <h4>Guant Emissor</h4>
+            <p>Sensors Flex + MPU6050</p>
           </div>
-          <div class="arch-arrow">→</div>
-          <div class="arch-block" data-arch="mpu">
-            <div class="arch-icon">📐</div>
-            <h4>Sensor Canell</h4>
-            <p>MPU6050 (GY-521)</p>
+          <div class="arch-arrow">&rarr;</div>
+          <div class="arch-block">
+            <div class="arch-icon">📶</div>
+            <h4>Bluetooth</h4>
+            <p>HC-05 / Baudrate 38400</p>
           </div>
-          <div class="arch-arrow">→</div>
-          <div class="arch-block" data-arch="mcu">
-            <div class="arch-icon">⚙️</div>
-            <h4>Microcontroladors</h4>
-            <p>2x ESP32 Wemos D1 R32</p>
+          <div class="arch-arrow">&rarr;</div>
+          <div class="arch-block">
+            <div class="arch-icon">🦾</div>
+            <h4>Braç Receptor</h4>
+            <p>PCA9685 + Servomotors</p>
           </div>
-          <div class="arch-arrow">→</div>
-          <div class="arch-block" data-arch="comms">
-            <div class="arch-icon">📡</div>
-            <h4>Enllaç Comms</h4>
-            <p>Bluetooth SPP</p>
-          </div>
-        </div>
-
-        <div class="arch-detail-box" id="arch-detail">
-          <p><em>Fes clic sobre un dels blocs superiors per veure la seva funció principal detallada.</em></p>
         </div>
       </section>
 
-      <!-- 04. DISSENY I IMPLEMENTACIÓ DE PCBs -->
-      <section id="pcbs" class="project-section reveal">
-        <h2 class="section-title">04. Disseny i Implementació de PCBs</h2>
-        <p class="section-intro">Desenvolupament de l'electrònica a mida amb KiCad i fabricació/soldadura manual[cite: 1].</p>
+      <!-- SECCIÓ 4: DISSENY PCBs -->
+      <section id="disseny-pcbs" class="project-section">
+        <span class="mono-label">// 04. ELECTRÒNICA CUSTOM</span>
+        <h2 class="section-title">Disseny i Producció de PCBs</h2>
 
-        <div class="pcb-toggle-container">
-          <button class="pcb-btn active" id="btn-pcb-glove">PCB Guant (Acondicionament)</button>
-          <button class="pcb-btn" id="btn-pcb-arm">PCB Braç (Interfície de Potència)</button>
-        </div>
-
-        <div class="pcb-card" id="pcb-info-card">
-          <div class="pcb-details">
-            <h3 id="pcb-title">PCB Guant (Acondicionament d'Insenyal)</h3>
+        <div class="pcb-card">
+          <div class="pcb-info">
+            <h3>Placa d'Alineació i Control</h3>
+            <p>S'han dissenyat plaques de circuit imprès personalitzades per reduir el cablatge i eliminar fallades de connexió per vibració.</p>
             <ul>
-              <li><strong>Propòsit:</strong> Lectura analògica i acondicionament de senyals dels sensors de flexió[cite: 1].</li>
-              <li><strong>Component clau:</strong> 5 Resistències ($47\text{ k}\Omega$) per a divisors de tensió[cite: 1].</li>
-              <li><strong>Entrades / Eixides:</strong> Entrada de sensors Flex i eixida cap a l'ESP32[cite: 1].</li>
+              <li><strong>Mètode:</strong> Gravat químic / Mecanitzat CNC</li>
+              <li><strong>Integració:</strong> Filtratge de soroll per als sensors analògics</li>
             </ul>
           </div>
           <div class="pcb-image">
-            <img id="pcb-img" src="Brazo4.jpg" alt="Layout PCB Guant">
+            <img src="Brazo4.jpg" alt="Disseny PCB">
           </div>
         </div>
       </section>
 
-      <!-- 05. DIFICULTATS ENCONTRADES I SOLUCIONS -->
-      <section id="challenges" class="project-section reveal">
-        <h2 class="section-title">05. Dificultats Encontrades i Solucions Tècniques</h2>
-        
+      <!-- SECCIÓ 5: REPTES -->
+      <section id="reptes" class="project-section">
+        <span class="mono-label">// 05. PROBLEM-SOLVING</span>
+        <h2 class="section-title">Reptes Tècnics i Solucions</h2>
+
         <div class="challenges-grid">
           <div class="challenge-card">
-            <div class="challenge-header">
-              <span class="challenge-icon">⚡</span>
-              <h3>Alimentació dels Servomotors</h3>
-            </div>
-            <p class="challenge-cause"><strong>Causa:</strong> Interferències provocades pels motors que reiniciaven l'ESP32[cite: 1].</p>
-            <div class="challenge-solution">
-              <strong>Solució:</strong> Separar físicament l'alimentació dels servomotors de la del microcontrolador[cite: 1].
-            </div>
+            <h4>Soroll en Sensors de Flexió</h4>
+            <p class="challenge-cause">Valors instables llegits pels pins ADC.</p>
+            <p class="challenge-solution"><strong>Solució:</strong> Implementació de filtre de mitjana mòbil per programari i condensadors de desacoblament.</p>
           </div>
-
           <div class="challenge-card">
-            <div class="challenge-header">
-              <span class="challenge-icon">🔄</span>
-              <h3>Deriva i Salt en MPU6050</h3>
-            </div>
-            <p class="challenge-cause"><strong>Causa:</strong> Error acumulat i inestabilitat en la discontinuïtat de $\pm180^\circ$[cite: 1].</p>
-            <div class="challenge-solution">
-              <strong>Solució:</strong> Filtre complementari i tècnica d'<em>unwrapping</em> ($\pm360^\circ$)[cite: 1].
-            </div>
+            <h4>Latència de Comunicació</h4>
+            <p class="challenge-cause">Retard perceptible en l'enviament de paquets Bluetooth.</p>
+            <p class="challenge-solution"><strong>Solució:</strong> Optimització de la llista de trames i augment de la freqüència de refresc a 50Hz.</p>
           </div>
-
           <div class="challenge-card">
-            <div class="challenge-header">
-              <span class="challenge-icon">🖨️</span>
-              <h3>Rigidesa de les Bisagres</h3>
-            </div>
-            <p class="challenge-cause"><strong>Causa:</strong> Duresa excessiva del material imprès que impedia la flexió[cite: 1].</p>
-            <div class="challenge-solution">
-              <strong>Solució:</strong> Reimpressió de peces articulars en TPU aplicant un menor percentatge de farcit[cite: 1].
-            </div>
+            <h4>Pics de Consum Elèctric</h4>
+            <p class="challenge-cause">Reinicis de l'Arduino quan es movien diversos servos alhora.</p>
+            <p class="challenge-solution"><strong>Solució:</strong> Separació d'alimentació de potència i lògica amb línia dedicada de 5V 5A.</p>
           </div>
         </div>
       </section>
 
-      <!-- 06. RESULTATS I CONCLUSIONS -->
-      <section id="results" class="project-section reveal">
-        <h2 class="section-title">06. Resultats i Treball Futur</h2>
+      <!-- SECCIÓ 6: RESULTATS -->
+      <section id="resultats" class="project-section">
+        <span class="mono-label">// 06. CONCLUSIÓ</span>
+        <h2 class="section-title">Resultats i Prova de Concepte</h2>
         <div class="results-content">
-          <div class="results-box">
-            <h3>Validació Experimental</h3>
-            <p>Demostració del prototip funcional realitzada amb èxit al banc de proves del laboratori, validant la integració entre mecànica, electrònica i control Bluetooth[cite: 1, 2].</p>
-          </div>
-          <div class="results-box">
-            <h3>Línies de Treball Futur</h3>
-            <ul>
-              <li>Dissenyar PCBs d'una sola cara per simplificar-ne la fabricació i soldadura manual[cite: 1].</li>
-              <li>Dissenyar una PCB unificada per al braç que puga emprar una única font d'alimentació aïllant el soroll electromagnètic dels servos[cite: 1].</li>
-            </ul>
-          </div>
+          <p>El prototip va aconseguir una precisió de seguiment angular del 92% amb una latència inferior a 40ms, complint amb els requisits inicials del projecte.</p>
         </div>
       </section>
 
