@@ -1,13 +1,37 @@
 document.addEventListener("DOMContentLoaded", () => {
   
   /* =========================================
-     1. BOTÓN COPIAR CÓDIGO
+     1. HIGHLIGHT DE NAVEGACIÓN EN SCROLL (TOC & SIDEBAR)
   ========================================= */
-  const codeContainers = document.querySelectorAll(".code-container");
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(".sidebar-right a, .sidebar-left a");
 
-  codeContainers.forEach((container) => {
-    const header = container.querySelector(".code-header");
-    const codeBlock = container.querySelector("code");
+  window.addEventListener("scroll", () => {
+    let current = "";
+
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+      if (window.pageYOffset >= sectionTop - 120) {
+        current = section.getAttribute("id");
+      }
+    });
+
+    navLinks.forEach((link) => {
+      link.classList.remove("active");
+      if (link.getAttribute("href") === `#${current}`) {
+        link.classList.add("active");
+      }
+    });
+  });
+
+  /* =========================================
+     2. BOTÓN INTERACTIVO PARA COPIAR CÓDIGO
+  ========================================= */
+  const codeBoxes = document.querySelectorAll(".code-box");
+
+  codeBoxes.forEach((box) => {
+    const header = box.querySelector(".code-header");
+    const codeBlock = box.querySelector("code");
 
     if (!header || !codeBlock) return;
 
@@ -21,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     copyBtn.style.border = "1px solid #444";
     copyBtn.style.borderRadius = "3px";
     copyBtn.style.cursor = "pointer";
+    copyBtn.style.transition = "all 0.2s ease";
 
     copyBtn.addEventListener("click", async () => {
       try {
@@ -33,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
           copyBtn.style.background = "#2a2b2c";
         }, 2000);
       } catch (err) {
-        console.error("Failed to copy:", err);
+        console.error("Error al copiar el código:", err);
       }
     });
 
@@ -41,9 +66,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* =========================================
-     2. ZOOM EN IMÁGENES
+     3. ZOOM INTERACTIVO EN IMÁGENES (LIGHTBOX)
   ========================================= */
-  const images = document.querySelectorAll(".main-image-frame img");
+  const images = document.querySelectorAll(".media-frame img");
 
   images.forEach((img) => {
     img.style.cursor = "zoom-in";
@@ -56,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
       overlay.style.display = "flex";
       overlay.style.alignItems = "center";
       overlay.style.justifyContent = "center";
-      overlay.style.zIndex = "1000";
+      overlay.style.zIndex = "2000";
       overlay.style.cursor = "zoom-out";
       overlay.style.backdropFilter = "blur(6px)";
 
@@ -66,6 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
       fullImg.style.maxHeight = "90vh";
       fullImg.style.objectFit = "contain";
       fullImg.style.borderRadius = "4px";
+      fullImg.style.boxShadow = "0 10px 30px rgba(0,0,0,0.5)";
 
       overlay.appendChild(fullImg);
       document.body.appendChild(overlay);
@@ -77,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* =========================================
-     3. REVELADO SUAVE DE SECCIONES
+     4. REVELADO SUAVE DE SECCIONES (FADE-IN EFFECT)
   ========================================= */
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -89,11 +115,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll(".doc-section").forEach((section) => {
-    section.style.opacity = "0";
-    section.style.transform = "translateY(20px)";
-    section.style.transition = "opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)";
-    observer.observe(section);
+  document.querySelectorAll(".doc-block").forEach((block) => {
+    block.style.opacity = "0";
+    block.style.transform = "translateY(20px)";
+    block.style.transition = "opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)";
+    observer.observe(block);
   });
 
 });
