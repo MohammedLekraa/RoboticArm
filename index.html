@@ -1,192 +1,211 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TFG - Control Teleoperado de Brazo Antropomórfico</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Braç Robòtic Sensoritzat // Mohammed Lekraa</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Encabezado Principal -->
-    <header class="navbar">
-        <div class="logo-area">
-            <i class="fa-solid fa-robot logo-icon"></i>
-            <div>
-                <h1>Control de Brazo Antropomórfico</h1>
-                <p>TFG Enginyeria Biomèdica | Universitat Rovira i Virgili</p>
-            </div>
-        </div>
-        <div class="status-badge" id="btStatus">
-            <span class="dot pulse"></span>
-            <span id="btText">Bluetooth SPP: Conectado (10 Hz)</span>
-        </div>
-    </header>
 
-    <!-- Contenedor Dashboard Principal (Grid 2 Columnas) -->
-    <main class="dashboard-grid">
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">ML // PORTFOLIO</a>
+    <div class="nav-links">
+      <a href="index.html#projects" class="nav-btn">← TORNAR A PROJECTES</a>
+    </div>
+  </nav>
+
+  <div class="project-layout">
+    
+    <!-- ÍNDEX LATERAL DINÀMIC -->
+    <aside class="project-sidebar">
+      <div class="sidebar-sticky">
+        <span class="mono-label">Navegació Projecte</span>
+        <ul class="sidebar-menu">
+          <li><a href="#intro" class="sidebar-link active" data-section="intro"><span class="step-num">01</span> INTRODUCCIÓ</a></li>
+          <li><a href="#cad-design" class="sidebar-link" data-section="cad-design"><span class="step-num">02</span> DISSENY CAD</a></li>
+          <li><a href="#architecture" class="sidebar-link" data-section="architecture"><span class="step-num">03</span> ARQUITECTURA</a></li>
+          <li><a href="#pcbs" class="sidebar-link" data-section="pcbs"><span class="step-num">04</span> DISSENY PCBs</a></li>
+          <li><a href="#challenges" class="sidebar-link" data-section="challenges"><span class="step-num">05</span> REPTES I SOLUCIONS</a></li>
+          <li><a href="#results" class="sidebar-link" data-section="results"><span class="step-num">06</span> RESULTATS</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- CONTINGUT PRINCIPAL -->
+    <main class="project-content">
+      
+      <!-- 01. PORTADA I INTRODUCCIÓ -->
+      <section id="intro" class="project-section reveal">
+        <span class="mono-label">PROJECT_01 // TFG</span>
+        <h1 class="project-main-title">Control de Braç Robòtic mitjançant Guant Sensoritzat</h1>
+        <p class="project-subtitle">Sistema encastat per a la reproducció de moviments de la mà i el canell en temps real.</p>
         
-        <!-- COLUMNA IZQUIERDA: MONITOREO EN TIEMPO REAL -->
-        <section class="card col-left">
-            <div class="card-header">
-                <h2><i class="fa-solid fa-gauge-high"></i> Telemetría en Tiempo Real</h2>
-                <span class="badge">Nodo Cliente → Servidor</span>
-            </div>
+        <div class="intro-grid">
+          <div class="intro-text">
+            <h3>Objectiu i Proposta</h3>
+            <p>Aquest projecte desenvolupa un sistema interactiu format per un guant sensoritzat emissor i un braç articulat receptor[cite: 1, 2]. Mitjançant sensors de flexió, una unitat MPU6050 i comunicació Bluetooth, el braç reprodueix la posició i flexió de la mà humana en temps real[cite: 1, 2].</p>
+          </div>
+          <div class="intro-image-card">
+            <img src="Brazo3.jpg" alt="Braç articulat i guant sensoritzat">
+            <span class="image-caption">Prototip final del braç articulat i el guant emisor.</span>
+          </div>
+        </div>
+      </section>
 
-            <!-- Métricas Rápidas del Sistema -->
-            <div class="metrics-row">
-                <div class="metric-box">
-                    <span class="m-label">Frecuencia BT</span>
-                    <span class="m-value">10 Hz</span>
-                </div>
-                <div class="metric-box">
-                    <span class="m-label">Alimentación Servos</span>
-                    <span class="m-value">6.5 V / 1.6 A</span>
-                </div>
-                <div class="metric-box">
-                    <span class="m-label">MCU Guante</span>
-                    <span class="m-value">3.3 V (ESP32)</span>
-                </div>
-            </div>
+      <!-- 02. DISSENY MECÀNIC I REDISSENY CAD -->
+      <section id="cad-design" class="project-section reveal">
+        <h2 class="section-title">02. Disseny Mecànic i Redisseny CAD</h2>
+        <p class="section-intro">Evolució del redisseny mecànic per millorar la durabilitat i integració de components[cite: 1].</p>
 
-            <!-- Monitor de Sensores de Flexión (Dedos) -->
-            <div class="section-title">
-                <h3><i class="fa-solid fa-hand"></i> Flexión de Dedos (Divisor de Tensión 47kΩ)</h3>
+        <!-- Mòdul interactiu de passos CAD -->
+        <div class="cad-interactive">
+          <div class="cad-steps-nav">
+            <button class="cad-step-btn active" data-step="0">01. Base Inicial</button>
+            <button class="cad-step-btn" data-step="1">02. Selecció Mà</button>
+            <button class="cad-step-btn" data-step="2">03. Redisseny CAD</button>
+            <button class="cad-step-btn" data-step="3">04. Ensamblatge</button>
+          </div>
+          <div class="cad-step-display" id="cad-display">
+            <div class="cad-info">
+              <h4 id="cad-step-title">01. Base Inicial</h4>
+              <p><strong>Component:</strong> Avantbraç InMoov[cite: 1]</p>
+              <p><strong>Justificació:</strong> Serveix com a estructura base per albergar la servomecànica[cite: 1].</p>
             </div>
-            <div class="fingers-container">
-                <!-- Pulgar -->
-                <div class="finger-card">
-                    <div class="f-info">
-                        <span>Pulgar (GPIO 39)</span>
-                        <span id="valFlex1" class="adc-val">2100 ADC | 0°</span>
-                    </div>
-                    <div class="progress-bar"><div class="fill" id="barFlex1" style="width: 0%"></div></div>
-                </div>
-                <!-- Índice -->
-                <div class="finger-card">
-                    <div class="f-info">
-                        <span>Índice (GPIO 36)</span>
-                        <span id="valFlex2" class="adc-val">2100 ADC | 0°</span>
-                    </div>
-                    <div class="progress-bar"><div class="fill" id="barFlex2" style="width: 0%"></div></div>
-                </div>
-                <!-- Corazón -->
-                <div class="finger-card">
-                    <div class="f-info">
-                        <span>Corazón (GPIO 34)</span>
-                        <span id="valFlex3" class="adc-val">2300 ADC | 0°</span>
-                    </div>
-                    <div class="progress-bar"><div class="fill" id="barFlex3" style="width: 0%"></div></div>
-                </div>
-                <!-- Anular -->
-                <div class="finger-card">
-                    <div class="f-info">
-                        <span>Anular (GPIO 35)</span>
-                        <span id="valFlex4" class="adc-val">2100 ADC | 0°</span>
-                    </div>
-                    <div class="progress-bar"><div class="fill" id="barFlex4" style="width: 0%"></div></div>
-                </div>
-                <!-- Meñique -->
-                <div class="finger-card">
-                    <div class="f-info">
-                        <span>Meñique (GPIO 33)</span>
-                        <span id="valFlex5" class="adc-val">2000 ADC | 0°</span>
-                    </div>
-                    <div class="progress-bar"><div class="fill" id="barFlex5" style="width: 0%"></div></div>
-                </div>
+            <div class="cad-image">
+              <img id="cad-step-img" src="Brazo1.jpg" alt="Disseny CAD">
             </div>
+          </div>
+        </div>
+      </section>
 
-            <!-- Monitor de Rotación de Muñeca (IMU) -->
-            <div class="section-title margin-top">
-                <h3><i class="fa-solid fa-arrows-spin"></i> Rotación de Muñeca (IMU MPU6050)</h3>
-            </div>
-            <div class="wrist-container">
-                <div class="gauge-wrapper">
-                    <div class="gauge-body">
-                        <div class="gauge-fill" id="wristNeedle"></div>
-                        <div class="gauge-cover"><span id="wristAngle">0°</span></div>
-                    </div>
-                </div>
-                <div class="imu-details">
-                    <p><strong>Filtro:</strong> Complementario ($\alpha = 0.98$)</p>
-                    <p><strong>Corrección:</strong> Angle Unwrapping ($\pm 180^\circ$)</p>
-                    <p><strong>Escalado Servo:</strong> $\times 1.82$</p>
-                </div>
-            </div>
+      <!-- 03. ARQUITECTURA DEL SISTEMA -->
+      <section id="architecture" class="project-section reveal">
+        <h2 class="section-title">03. Arquitectura del Sistema</h2>
+        <p class="section-intro">Captura de moviment, processament i transmissió de dades sense fils[cite: 1, 2].</p>
 
-            <!-- Consola de Monitor Serie / Depuración -->
-            <div class="terminal-box">
-                <div class="term-header">
-                    <span><i class="fa-solid fa-terminal"></i> Monitor Serie (Bluetooth SPP Trama)</span>
-                    <button id="btnSimulate" class="btn-small">Simular Trama</button>
-                </div>
-                <pre id="terminalLog" class="term-body">Esperando tramas de datos: &lt;flex1&gt; &lt;flex2&gt; &lt;flex3&gt; &lt;flex4&gt; &lt;flex5&gt; &lt;roll_servo&gt;...</pre>
-            </div>
-        </section>
+        <!-- Bloques interactivos de arquitectura -->
+        <div class="arch-diagram">
+          <div class="arch-block" data-arch="sensors">
+            <div class="arch-icon">🖐️</div>
+            <h4>Sensors Dits</h4>
+            <p>5x Flex Sensors</p>
+          </div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-block" data-arch="mpu">
+            <div class="arch-icon">📐</div>
+            <h4>Sensor Canell</h4>
+            <p>MPU6050 (GY-521)</p>
+          </div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-block" data-arch="mcu">
+            <div class="arch-icon">⚙️</div>
+            <h4>Microcontroladors</h4>
+            <p>2x ESP32 Wemos D1 R32</p>
+          </div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-block" data-arch="comms">
+            <div class="arch-icon">📡</div>
+            <h4>Enllaç Comms</h4>
+            <p>Bluetooth SPP</p>
+          </div>
+        </div>
 
-        <!-- COLUMNA DERECHA: DOCUMENTACIÓN TÉCNICA Y MAPEO DE PINES -->
-        <section class="card col-right">
-            <div class="card-header">
-                <h2><i class="fa-solid fa-microchip"></i> Arquitectura Electrónica & TFG</h2>
-                <span class="badge cyan">Wemos D1 R32</span>
-            </div>
+        <div class="arch-detail-box" id="arch-detail">
+          <p><em>Fes clic sobre un dels blocs superiors per veure la seva funció principal detallada.</em></p>
+        </div>
+      </section>
 
-            <!-- Tabla Mapeo de Pines -->
-            <h3>Asignación de Pines (Nodos ESP32)</h3>
-            <div class="table-responsive">
-                <table class="tech-table">
-                    <thead>
-                        <tr>
-                            <th>Elemento</th>
-                            <th>Pin ESP32 (Cliente / Guante)</th>
-                            <th>Pin ESP32 (Servidor / Brazo)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Flex 1 (Pulgar)</td><td>GPIO 39 (ADC)</td><td>GPIO 14 (PWM Servo 1)</td></tr>
-                        <tr><td>Flex 2 (Índice)</td><td>GPIO 36 (ADC)</td><td>GPIO 27 (PWM Servo 2)</td></tr>
-                        <tr><td>Flex 3 (Corazón)</td><td>GPIO 34 (ADC)</td><td>GPIO 16 (PWM Servo 3)</td></tr>
-                        <tr><td>Flex 4 (Anular)</td><td>GPIO 35 (ADC)</td><td>GPIO 17 (PWM Servo 4)</td></tr>
-                        <tr><td>Flex 5 (Meñique)</td><td>GPIO 33 (ADC)</td><td>GPIO 25 (PWM Servo 5)</td></tr>
-                        <tr><td>IMU MPU6050</td><td>GPIO 21 (SDA) / 22 (SCL)</td><td>GPIO 26 (PWM Servo 6)</td></tr>
-                    </tbody>
-                </table>
-            </div>
+      <!-- 04. DISSENY I IMPLEMENTACIÓ DE PCBs -->
+      <section id="pcbs" class="project-section reveal">
+        <h2 class="section-title">04. Disseny i Implementació de PCBs</h2>
+        <p class="section-intro">Desenvolupament de l'electrònica a mida amb KiCad i fabricació/soldadura manual[cite: 1].</p>
 
-            <!-- Caracterización de Sensores de Flexión -->
-            <h3 class="margin-top">Tabla de Caracterización (Calibración ADC)</h3>
-            <div class="table-responsive">
-                <table class="tech-table compact">
-                    <thead>
-                        <tr>
-                            <th>Dedo</th>
-                            <th>FlexMax (Extendido)</th>
-                            <th>FlexMin (Flexionado)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Pulgar</td><td>2100 ADC</td><td>1530 ADC</td></tr>
-                        <tr><td>Índice</td><td>2100 ADC</td><td>1530 ADC</td></tr>
-                        <tr><td>Corazón</td><td>2300 ADC</td><td>1700 ADC</td></tr>
-                        <tr><td>Anular</td><td>2100 ADC</td><td>1650 ADC</td></tr>
-                        <tr><td>Meñique</td><td>2000 ADC</td><td>1730 ADC</td></tr>
-                    </tbody>
-                </table>
-            </div>
+        <div class="pcb-toggle-container">
+          <button class="pcb-btn active" id="btn-pcb-glove">PCB Guant (Acondicionament)</button>
+          <button class="pcb-btn" id="btn-pcb-arm">PCB Braç (Interfície de Potència)</button>
+        </div>
 
-            <!-- Resumen Técnico del Proyecto -->
-            <div class="info-card margin-top">
-                <h4><i class="fa-solid fa-circle-info"></i> Aspectos Clave de Integración</h4>
-                <ul>
-                    <li><strong>Procesamiento IMU:</strong> Fusión de acelerómetro y giroscopio para eliminar la deriva, con técnica de *Unwrapping* para evitar giros bruscos al cruzar los $\pm180^{\circ}$.</li>
-                    <li><strong>Aislamiento de Alimentación:</strong> Separa la línea de 6.5V de los servomotores de la electrónica de control ESP32 para mitigar caídas de tensión y reinicios.</li>
-                    <li><strong>Mecanismos:</strong> Antebrazo del proyecto *InMoov* acoplado a la mano *BrainyHand* mediante pieza adaptadora impresa en 3D y articulaciones flexibles de TPU.</li>
-                </ul>
+        <div class="pcb-card" id="pcb-info-card">
+          <div class="pcb-details">
+            <h3 id="pcb-title">PCB Guant (Acondicionament d'Insenyal)</h3>
+            <ul>
+              <li><strong>Propòsit:</strong> Lectura analògica i acondicionament de senyals dels sensors de flexió[cite: 1].</li>
+              <li><strong>Component clau:</strong> 5 Resistències ($47\text{ k}\Omega$) per a divisors de tensió[cite: 1].</li>
+              <li><strong>Entrades / Eixides:</strong> Entrada de sensors Flex i eixida cap a l'ESP32[cite: 1].</li>
+            </ul>
+          </div>
+          <div class="pcb-image">
+            <img id="pcb-img" src="Brazo4.jpg" alt="Layout PCB Guant">
+          </div>
+        </div>
+      </section>
+
+      <!-- 05. DIFICULTATS ENCONTRADES I SOLUCIONS -->
+      <section id="challenges" class="project-section reveal">
+        <h2 class="section-title">05. Dificultats Encontrades i Solucions Tècniques</h2>
+        
+        <div class="challenges-grid">
+          <div class="challenge-card">
+            <div class="challenge-header">
+              <span class="challenge-icon">⚡</span>
+              <h3>Alimentació dels Servomotors</h3>
             </div>
-        </section>
+            <p class="challenge-cause"><strong>Causa:</strong> Interferències provocades pels motors que reiniciaven l'ESP32[cite: 1].</p>
+            <div class="challenge-solution">
+              <strong>Solució:</strong> Separar físicament l'alimentació dels servomotors de la del microcontrolador[cite: 1].
+            </div>
+          </div>
+
+          <div class="challenge-card">
+            <div class="challenge-header">
+              <span class="challenge-icon">🔄</span>
+              <h3>Deriva i Salt en MPU6050</h3>
+            </div>
+            <p class="challenge-cause"><strong>Causa:</strong> Error acumulat i inestabilitat en la discontinuïtat de $\pm180^\circ$[cite: 1].</p>
+            <div class="challenge-solution">
+              <strong>Solució:</strong> Filtre complementari i tècnica d'<em>unwrapping</em> ($\pm360^\circ$)[cite: 1].
+            </div>
+          </div>
+
+          <div class="challenge-card">
+            <div class="challenge-header">
+              <span class="challenge-icon">🖨️</span>
+              <h3>Rigidesa de les Bisagres</h3>
+            </div>
+            <p class="challenge-cause"><strong>Causa:</strong> Duresa excessiva del material imprès que impedia la flexió[cite: 1].</p>
+            <div class="challenge-solution">
+              <strong>Solució:</strong> Reimpressió de peces articulars en TPU aplicant un menor percentatge de farcit[cite: 1].
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06. RESULTATS I CONCLUSIONS -->
+      <section id="results" class="project-section reveal">
+        <h2 class="section-title">06. Resultats i Treball Futur</h2>
+        <div class="results-content">
+          <div class="results-box">
+            <h3>Validació Experimental</h3>
+            <p>Demostració del prototip funcional realitzada amb èxit al banc de proves del laboratori, validant la integració entre mecànica, electrònica i control Bluetooth[cite: 1, 2].</p>
+          </div>
+          <div class="results-box">
+            <h3>Línies de Treball Futur</h3>
+            <ul>
+              <li>Dissenyar PCBs d'una sola cara per simplificar-ne la fabricació i soldadura manual[cite: 1].</li>
+              <li>Dissenyar una PCB unificada per al braç que puga emprar una única font d'alimentació aïllant el soroll electromagnètic dels servos[cite: 1].</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
     </main>
-    <script src="script.js"></script>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
