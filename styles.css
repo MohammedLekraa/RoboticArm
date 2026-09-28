@@ -1,517 +1,288 @@
-:root {
-    --bg-color: #0b0f19;
-    --card-bg: rgba(22, 30, 46, 0.7);
-    --border-color: rgba(255, 255, 255, 0.08);
-    --primary-cyan: #00f2fe;
-    --primary-blue: #4facfe;
-    --accent-green: #00e676;
-    --accent-red: #ff5252;
-    --text-main: #f1f5f9;
-    --text-muted: #94a3b8;
-    --font-sans: 'Inter', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    background-color: var(--bg-color);
-    color: var(--text-main);
-    font-family: var(--font-sans);
-    padding: 20px;
-    background-image: radial-gradient(circle at 10% 20%, rgba(0, 242, 254, 0.05) 0%, transparent 40%),
-                      radial-gradient(circle at 90% 80%, rgba(79, 172, 254, 0.05) 0%, transparent 40%);
-    min-height: 100vh;
-}
-
-/* Encabezado */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    backdrop-filter: blur(12px);
-    padding: 15px 25px;
-    border-radius: 16px;
-    margin-bottom: 20px;
-}
-
-.logo-area {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.logo-icon {
-    font-size: 2rem;
-    color: var(--primary-cyan);
-}
-
-.navbar h1 {
-    font-size: 1.3rem;
-    font-weight: 700;
-}
-
-.navbar p {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-}
-
-.status-badge {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(0, 230, 118, 0.1);
-    border: 1px solid var(--accent-green);
-    color: var(--accent-green);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-}
-
-.dot {
-    width: 8px;
-    height: 8px;
-    background-color: var(--accent-green);
-    border-radius: 50%;
-}
-
-.pulse {
-    animation: pulse-animation 1.5s infinite;
-}
-
-@keyframes pulse-animation {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.7); }
-    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(0, 230, 118, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 230, 118, 0); }
-}
-
-/* Dashboard Grid */
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-@media (max-width: 1024px) {
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-.card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    backdrop-filter: blur(12px);
-    border-radius: 16px;
-    padding: 24px;
-}
-
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 12px;
-}
-
-.card-header h2 {
-    font-size: 1.1rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--primary-cyan);
-}
-
-.badge {
-    background: rgba(79, 172, 254, 0.15);
-    color: var(--primary-blue);
-    padding: 4px 10px;
-    border-radius: 8px;
-    font-size: 0.75rem;
-    font-weight: 600;
-}
-
-.badge.cyan {
-    background: rgba(0, 242, 254, 0.15);
-    color: var(--primary-cyan);
-}
-
-/* Métricas */
-.metrics-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-bottom: 20px;
-}
-
-.metric-box {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border-color);
-    padding: 12px;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.m-label {
-    display: block;
-    font-size: 0.75rem;
-    color: var(--text-muted);
-}
-
-.m-value {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--text-main);
-}
-
-/* Dedos */
-.section-title {
-    margin: 15px 0 10px 0;
-}
-
-.section-title h3 {
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.margin-top {
-    margin-top: 25px;
-}
-
-.fingers-container {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.finger-card {
-    background: rgba(0, 0, 0, 0.2);
-    padding: 10px 14px;
-    border-radius: 10px;
-    border: 1px solid var(--border-color);
-}
-
-.f-info {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.85rem;
-    margin-bottom: 6px;
-}
-
-.adc-val {
-    font-family: var(--font-mono);
-    color: var(--primary-cyan);
-}
-
-.progress-bar {
-    width: 100%;
-    height: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, var(--primary-blue), var(--primary-cyan));
-    transition: width 0.2s ease;
-}
-
-/* Muñeca */
-.wrist-container {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-    background: rgba(0, 0, 0, 0.2);
-    padding: 15px;
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
-}
-
-.gauge-wrapper {
-    position: relative;
-    width: 100px;
-    height: 50px;
-}
-
-.gauge-body {
-    width: 100px;
-    height: 50px;
-    background: rgba(255, 255, 255, 0.1);
-    border-top-left-radius: 100px;
-    border-top-right-radius: 100px;
-    position: relative;
-    overflow: hidden;
-}
-
-.gauge-fill {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--primary-cyan);
-    transform-origin: center top;
-    transform: rotate(0deg);
-    transition: transform 0.2s ease;
-}
-
-.gauge-cover {
-    width: 70px;
-    height: 35px;
-    background: var(--bg-color);
-    border-top-left-radius: 70px;
-    border-top-right-radius: 70px;
-    position: absolute;
-    bottom: 0;
-    left: 15px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding-bottom: 4px;
-    font-family: var(--font-mono);
-    font-weight: bold;
-    color: var(--primary-cyan);
-}
-
-.imu-details p {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    margin-bottom: 4px;
-}
-
-/* Terminal */
-.terminal-box {
-    margin-top: 20px;
-    background: #05070c;
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    padding: 12px;
-    font-family: var(--font-mono);
-}
-
-.term-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    margin-bottom: 8px;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    padding-bottom: 6px;
-}
-
-.btn-small {
-    background: rgba(0, 242, 254, 0.15);
-    color: var(--primary-cyan);
-    border: 1px solid var(--primary-cyan);
-    padding: 3px 8px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.7rem;
-}
-
-.btn-small:hover {
-    background: var(--primary-cyan);
-    color: #000;
-}
-
-.term-body {
-    font-size: 0.75rem;
-    color: var(--accent-green);
-    white-space: pre-wrap;
-    height: 60px;
-    overflow-y: auto;
-}
-
-/* Tablas */
-.table-responsive {
-    overflow-x: auto;
-    margin-top: 10px;
-}
-
-.tech-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.82rem;
-    text-align: left;
-}
-
-.tech-table th, .tech-table td {
-    padding: 10px;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.tech-table th {
-    background: rgba(255, 255, 255, 0.03);
-    color: var(--text-muted);
-}
-
-.tech-table td {
-    color: var(--text-main);
-}
-
-.info-card {
-    background: rgba(0, 242, 254, 0.03);
-    border: 1px solid rgba(0, 242, 254, 0.2);
-    border-radius: 10px;
-    padding: 15px;
-}
-
-.info-card h4 {
-    color: var(--primary-cyan);
-    font-size: 0.9rem;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.info-card ul {
-    padding-left: 18px;
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    line-height: 1.5;
-}
-/* ==========================================
-   Estructura Principal del Portfolio
-   ========================================== */
+/* =========================================
+   PROJECT DETAIL LAYOUT & SIDEBAR
+========================================= */
 
 .project-layout {
-    display: flex;
-    gap: 40px;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-top: 5rem;
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 3rem;
 }
 
-/* Sidebar lateral */
 .project-sidebar {
-    width: 260px;
-    flex-shrink: 0;
+  padding: 3rem 1.5rem;
 }
 
 .sidebar-sticky {
-    position: sticky;
-    top: 20px;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    padding: 20px;
-    border-radius: 16px;
-    backdrop-filter: blur(12px);
+  position: sticky;
+  top: 6rem;
 }
 
 .sidebar-menu {
-    list-style: none;
-    margin-top: 15px;
-}
-
-.sidebar-menu li {
-    margin-bottom: 10px;
+  list-style: none;
+  margin-top: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .sidebar-link {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.85rem;
-    display: block;
-    padding: 6px 10px;
-    border-radius: 8px;
-    transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 0.6rem 0.8rem;
+  border-left: 2px solid var(--border-color);
+  transition: all 0.25s ease;
 }
 
-.sidebar-link:hover, .sidebar-link.active {
-    color: var(--primary-cyan);
-    background: rgba(0, 242, 254, 0.1);
+.sidebar-link .step-num {
+  opacity: 0.5;
 }
 
-/* Contenido Principal */
+.sidebar-link:hover,
+.sidebar-link.active {
+  color: var(--text-main);
+  border-left-color: var(--text-main);
+  background: rgba(0, 0, 0, 0.03);
+}
+
 .project-content {
-    flex-grow: 1;
-    min-width: 0; /* Evita desbordamiento de flex items */
+  padding: 3rem 3rem 6rem 0;
 }
 
 .project-section {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 30px;
-    margin-bottom: 30px;
-    backdrop-filter: blur(12px);
+  padding-bottom: 5rem;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid var(--border-color);
 }
 
-/* Grid de Introducción */
+.project-main-title {
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin: 0.8rem 0;
+}
+
+.project-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
 .intro-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
 }
 
-.intro-image-card img, .pcb-image img, .cad-image img {
-    width: 100%;
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
+.intro-image-card img {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
 }
 
-/* Rejilla de Desafíos y Soluciones */
-.challenges-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
+.image-caption {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  display: block;
 }
 
-.challenge-card {
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid var(--border-color);
-    padding: 20px;
-    border-radius: 12px;
+/* INTERACTIVE CAD MODULE */
+.cad-interactive {
+  background: var(--panel-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
 }
 
-/* Diagrama de Arquitectura */
+.cad-steps-nav {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.cad-step-btn {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cad-step-btn.active, .cad-step-btn:hover {
+  background: var(--text-main);
+  color: #fff;
+}
+
+.cad-step-display {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.cad-image img {
+  width: 100%;
+  max-height: 250px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* ARCHITECTURE DIAGRAM */
 .arch-diagram {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    margin: 20px 0;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin: 2rem 0 1rem;
 }
 
 .arch-block {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border-color);
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
-    flex: 1;
-    min-width: 120px;
+  background: var(--panel-bg);
+  border: 1px solid var(--border-color);
+  padding: 1rem;
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+  flex: 1;
+  transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
-/* Adaptación para pantallas pequeñas */
-@media (max-width: 900px) {
-    .project-layout {
-        flex-direction: column;
-    }
-    
-    .project-sidebar {
-        width: 100%;
-    }
-    
-    .intro-grid {
-        grid-template-columns: 1fr;
-    }
+.arch-block:hover {
+  transform: translateY(-3px);
+  border-color: var(--text-main);
+}
+
+.arch-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.arch-block h4 {
+  font-size: 0.8rem;
+  margin-bottom: 0.2rem;
+}
+
+.arch-block p {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-muted);
+}
+
+.arch-detail-box {
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px dashed var(--border-color);
+  padding: 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+/* PCB TOGGLE */
+.pcb-toggle-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.pcb-btn {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--border-color);
+  background: var(--panel-bg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pcb-btn.active {
+  background: var(--text-main);
+  color: #fff;
+}
+
+.pcb-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  background: var(--panel-bg);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  border-radius: 6px;
+}
+
+.pcb-image img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* CHALLENGES GRID */
+.challenges-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+.challenge-card {
+  background: var(--panel-bg);
+  border: 1px solid var(--border-color);
+  padding: 1.2rem;
+  border-radius: 6px;
+}
+
+.challenge-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.challenge-icon {
+  font-size: 1.2rem;
+}
+
+.challenge-card h3 {
+  font-size: 0.9rem;
+}
+
+.challenge-cause, .challenge-solution {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  margin-bottom: 0.6rem;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 992px) {
+  .project-layout {
+    grid-template-columns: 1fr;
+    padding-top: 4rem;
+  }
+  .project-sidebar {
+    display: none; /* Amaguem l'índex en pantalles xicotetes */
+  }
+  .project-content {
+    padding: 2rem;
+  }
+  .challenges-grid, .intro-grid, .cad-step-display, .pcb-card {
+    grid-template-columns: 1fr;
+  }
+  .arch-diagram {
+    flex-direction: column;
+  }
 }
